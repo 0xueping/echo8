@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <link rel="stylesheet" href="styles/matrix.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>记忆恢复工具</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, sans-serif; background: #f0f2f5; color: #333; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 15px; }
+        
+        .header { 
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 10px 0; margin-bottom: 15px; border-bottom: 1px solid #ddd;
+        }
+        .back-btn {
+            display: inline-flex; align-items: center; gap: 5px;
+            padding: 6px 12px; background: #3498db; color: white;
+            text-decoration: none; border-radius: 4px; font-size: 0.85rem;
+        }
+        .back-btn:hover { background: #2980b9; }
+        
+        .title { text-align: center; margin-bottom: 20px; }
+        .title h1 { font-size: 1.3rem; margin-bottom: 5px; }
+        .title p { font-size: 0.85rem; color: #666; }
+        
+        .tool-frame {
+            width: 100%; height: 500px; border: none; display: block;
+            background: white; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .info { margin-top: 20px; padding: 15px; background: white; border-radius: 8px; }
+        .info h2 { font-size: 1rem; margin-bottom: 10px; color: #2c3e50; }
+        .steps { padding-left: 20px; margin-top: 10px; }
+        .steps li { margin-bottom: 8px; font-size: 0.85rem; color: #555; }
+        
+        .footer {
+            text-align: center; margin-top: 20px; padding-top: 15px;
+            border-top: 1px solid #eee; color: #888; font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 代码雨背景 -->
+    <canvas id="matrix-rain"></canvas>
+    <div class="scanline"></div>
+
+    <!-- 角落装饰 -->
+    <div class="corner corner-tl"></div>
+    <div class="corner corner-tr"></div>
+    <div class="corner corner-bl"></div>
+    <div class="corner corner-br"></div>
+    
+    <div class="container">
+    <div class="container">
+        <div class="header">
+            <a href="ai_tools_portal.html" class="back-btn">← 返回</a>
+            <div style="font-weight: 600; font-size: 0.9rem;">AI工具箱</div>
+        </div>
+        
+        <div class="title">
+            <h1>🧠 记忆恢复工具</h1>
+            <p>上传JSONL文件 → 自动转换 → 直接预览</p>
+        </div>
+        
+        <iframe 
+            src="ai-tools/chat-mem-frag-recov/simple-converter.html" 
+            class="tool-frame"
+            title="记忆恢复工具"
+            sandbox="allow-scripts allow-same-origin allow-forms"
+        ></iframe>
+        
+        <div class="info">
+            <h2>使用步骤</h2>
+            <ol class="steps">
+                <li><strong>上传文件</strong>：选择JSONL格式的聊天记录文件</li>
+                <li><strong>开始转换</strong>：点击按钮，工具自动处理</li>
+                <li><strong>查看结果</strong>：转换完成后直接显示预览</li>
+                <li><strong>导出文件</strong>：点击导出按钮下载清洗后的文件</li>
+            </ol>
+        </div>
+        
+        <div class="footer">
+            <p>虫洞8°工具箱 · 简化版 · 龙爪构建</p>
+        </div>
+    </div>
+    
+    <script>
+        console.log('记忆恢复工具页面加载');
+        const iframe = document.querySelector('.tool-frame');
+        iframe.onload = () => console.log('工具加载完成');
+        iframe.onerror = () => console.error('工具加载失败');
+    </script>
+    </div>
+
+    <!-- 代码雨背景脚本 -->
+    <script src="js/matrix-rain.js"></script>
+</body>
+</html>

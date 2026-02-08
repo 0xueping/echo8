@@ -1,0 +1,10 @@
+# Backup files
+*.bak
+*.bak.*
+
+# macOS
+.DS_Store
+
+# Temporary files
+*.tmp
+*.temp

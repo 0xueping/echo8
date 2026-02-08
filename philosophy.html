@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>设计哲学 - 虫洞8°</title>
+    <meta name="description" content="虫洞8°的设计哲学:从信息消费到认知资产积累,多视角对比优于单一答案,决策支持优于信息获取,长期资产优于临时对话。">
+    <link rel="stylesheet" href="styles/matrix.css">
+    <style>
+        /* 页面特定样式 */
+        .page-header {
+            text-align: center;
+            padding: 100px 20px 60px;
+            border-bottom: 1px solid rgba(0, 255, 136, 0.2);
+            margin-bottom: 60px;
+        }
+
+        .page-badge {
+            display: inline-block;
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            color: #00ff88;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .page-title {
+            font-size: 52px;
+            color: #fff;
+            margin-bottom: 20px;
+            text-shadow: 0 0 40px rgba(0, 255, 136, 0.8);
+        }
+
+        .page-subtitle {
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        .philosophy-section {
+            margin-bottom: 100px;
+        }
+
+        .section-heading {
+            font-size: 36px;
+            color: #fff;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid rgba(0, 255, 136, 0.3);
+            position: relative;
+        }
+
+        .section-heading::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100px;
+            height: 2px;
+            background: #00ff88;
+            box-shadow: 0 0 10px #00ff88;
+        }
+
+        /* 核心转变 */
+        .transformation-box {
+            background: rgba(0, 0, 0, 0.4);
+            border: 2px solid rgba(0, 255, 136, 0.3);
+            border-radius: 20px;
+            padding: 60px;
+            margin: 60px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .transformation-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(0, 255, 136, 0.1), transparent 70%);
+        }
+
+        .transformation-flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+            position: relative;
+            z-index: 2;
+            flex-wrap: wrap;
+        }
+
+        .flow-step {
+            flex: 1;
+            min-width: 250px;
+            text-align: center;
+        }
+
+        .flow-arrow {
+            font-size: 40px;
+            color: #00ff88;
+            animation: pulse 2s infinite;
+        }
+
+        .flow-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .flow-title {
+            font-size: 24px;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .flow-desc {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 14px;
+        }
+
+        /* 哲学卡片 */
+        .philosophy-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            margin: 60px 0;
+        }
+
+        .philosophy-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(0, 255, 136, 0.15);
+            border-radius: 16px;
+            padding: 40px;
+            transition: all 0.3s;
+        }
+
+        .philosophy-card:hover {
+            border-color: rgba(0, 255, 136, 0.4);
+            background: rgba(0, 255, 136, 0.05);
+            transform: translateY(-5px);
+            box-shadow: 0 0 40px rgba(0, 255, 136, 0.2);
+        }
+
+        .philosophy-number {
+            font-size: 64px;
+            font-weight: bold;
+            color: rgba(0, 255, 136, 0.2);
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+
+        .philosophy-card-title {
+            font-size: 28px;
+            color: #00ff88;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .philosophy-card-content {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.8;
+            font-size: 16px;
+        }
+
+        /* 关键洞察 */
+        .insight-box {
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(0, 255, 136, 0.05));
+            border-left: 4px solid #00ff88;
+            padding: 30px 40px;
+            margin: 40px 0;
+            border-radius: 0 12px 12px 0;
+        }
+
+        .insight-title {
+            font-size: 20px;
+            color: #00ff88;
+            margin-bottom: 15px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .insight-content {
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.8;
+            font-size: 16px;
+        }
+
+        /* 核心原则网格 */
+        .principles-section {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            border-radius: 20px;
+            padding: 60px 40px;
+            margin: 80px 0;
+        }
+
+        .principles-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .principle-item {
+            display: flex;
+            gap: 20px;
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 12px;
+            transition: all 0.3s;
+        }
+
+        .principle-item:hover {
+            background: rgba(0, 255, 136, 0.05);
+            border: 1px solid rgba(0, 255, 136, 0.2);
+        }
+
+        .principle-icon {
+            font-size: 40px;
+            flex-shrink: 0;
+        }
+
+        .principle-text h3 {
+            color: #00ff88;
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+
+        .principle-text p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* 引用块 */
+        .quote-block {
+            text-align: center;
+            padding: 60px 40px;
+            margin: 80px 0;
+            position: relative;
+        }
+
+        .quote-mark {
+            font-size: 120px;
+            color: rgba(0, 255, 136, 0.15);
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            line-height: 1;
+        }
+
+        .quote-text {
+            font-size: 28px;
+            color: #fff;
+            line-height: 1.6;
+            position: relative;
+            z-index: 2;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        .quote-author {
+            color: #00ff88;
+            font-size: 16px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* 价值对比 */
+        .value-comparison {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 40px;
+            align-items: center;
+            margin: 60px 0;
+        }
+
+        .value-side {
+            text-align: center;
+        }
+
+        .value-side.old {
+            opacity: 0.6;
+        }
+
+        .value-side.new {
+            opacity: 1;
+        }
+
+        .vs-badge {
+            background: rgba(0, 255, 136, 0.2);
+            border: 2px solid #00ff88;
+            color: #00ff88;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .value-title {
+            font-size: 20px;
+            color: #fff;
+            margin-bottom: 15px;
+        }
+
+        .value-desc {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 1024px) {
+            .philosophy-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .principles-list {
+                grid-template-columns: 1fr;
+            }
+
+            .value-comparison {
+                grid-template-columns: 1fr;
+            }
+
+            .transformation-flow {
+                flex-direction: column;
+            }
+
+            .flow-arrow {
+                transform: rotate(90deg);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 38px;
+            }
+
+            .transformation-box {
+                padding: 40px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 代码雨背景 -->
+    <canvas id="matrix-rain"></canvas>
+
+    <!-- 角落装饰 -->
+    <div class="corner corner-tl"></div>
+    <div class="corner corner-tr"></div>
+    <div class="corner corner-bl"></div>
+    <div class="corner corner-br"></div>
+
+    <div class="container">
+        <!-- 导航栏 -->
+        <nav class="navbar">
+            <a href="index.html" class="logo">
+                <span class="logo-emoji">🌀</span>
+                <span>虫洞8°</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">首页</a>
+                <a href="philosophy.html" class="nav-link active">设计哲学</a>
+                <a href="how-it-works.html" class="nav-link">工作原理</a>
+                <a href="use-cases.html" class="nav-link">使用场景</a>
+                <a href="download.html" class="nav-link">下载</a>
+                <a href="docs.html" class="nav-link">文档</a>
+            </div>
+        </nav>
+
+        <!-- 页面头部 -->
+        <section class="page-header">
+            <div class="page-badge">Core Philosophy</div>
+            <h1 class="page-title">设计哲学</h1>
+            <p class="page-subtitle">
+                从信息消费到认知资产积累,重新定义人机协作的未来
+            </p>
+        </section>
+
+        <!-- 核心转变 -->
+        <section class="philosophy-section">
+            <h2 class="section-heading">🔄 核心转变</h2>
+
+            <div class="transformation-box">
+                <div class="transformation-flow">
+                    <div class="flow-step">
+                        <span class="flow-icon">📝</span>
+                        <h3 class="flow-title">用户意图</h3>
+                        <p class="flow-desc">提出问题或决策需求</p>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step">
+                        <span class="flow-icon">🤖</span>
+                        <h3 class="flow-title">多AI并行思考</h3>
+                        <p class="flow-desc">8个专家同时分析</p>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step">
+                        <span class="flow-icon">📸</span>
+                        <h3 class="flow-title">认知快照</h3>
+                        <p class="flow-desc">形成多维视角</p>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step">
+                        <span class="flow-icon">💎</span>
+                        <h3 class="flow-title">沉淀为资产</h3>
+                        <p class="flow-desc">可复用、可增值</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="insight-box">
+                <div class="insight-title">
+                    <span>💡</span>
+                    <span>核心洞察</span>
+                </div>
+                <div class="insight-content">
+                    <strong>传统AI工具</strong>的价值在于"当下这一次回答",对话结束,历史被遗忘。<br><br>
+                    <strong>虫洞8°</strong>的价值在于"长期形成的判断力提升",每一次对话都成为认知资产,持续累积、可复用、可增值。
+                </div>
+            </div>
+        </section>
+
+        <!-- 五大哲学维度 -->
+        <section class="philosophy-section">
+            <h2 class="section-heading">🎯 五大哲学维度</h2>
+
+            <div class="philosophy-grid">
+                <div class="philosophy-card">
+                    <div class="philosophy-number">01</div>
+                    <h3 class="philosophy-card-title">多视角 > 单一答案</h3>
+                    <div class="philosophy-card-content">
+                        <p>价值在对比,不在结论。</p>
+                        <p style="margin-top: 15px;">
+                            单一AI的回答可能存在盲区。8个AI专家并行思考,让你看到共识、发现分歧、识别风险。
+                            我们不做"谁更好"的评判,而是完整展现不同视角,由你做出判断。
+                        </p>
+                    </div>
+                </div>
+
+                <div class="philosophy-card">
+                    <div class="philosophy-number">02</div>
+                    <h3 class="philosophy-card-title">决策支持 > 信息获取</h3>
+                    <div class="philosophy-card-content">
+                        <p>帮助判断,不替代判断。</p>
+                        <p style="margin-top: 15px;">
+                            我们不是搜索引擎,不是问答机器人。我们是决策辅助系统,你是决策者,AI是顾问。
+                            我们的目标不是"AI答对了",而是"你的决策更稳健了"。
+                        </p>
+                    </div>
+                </div>
+
+                <div class="philosophy-card">
+                    <div class="philosophy-number">03</div>
+                    <h3 class="philosophy-card-title">长期资产 > 临时对话</h3>
+                    <div class="philosophy-card-content">
+                        <p>积累价值,不是消费信息。</p>
+                        <p style="margin-top: 15px;">
+                            每次对话形成<strong>认知快照</strong>,可生成共识、差异、融合分析,支持二次三次加工。
+                            任何时候都可以返回来复盘"那时那刻"的决策原因,从历史中学习和成长。
+                        </p>
+                    </div>
+                </div>
+
+                <div class="philosophy-card">
+                    <div class="philosophy-number">04</div>
+                    <h3 class="philosophy-card-title">本地优先 > 云端便利</h3>
+                    <div class="philosophy-card-content">
+                        <p>所有权感,建立信任。</p>
+                        <p style="margin-top: 15px;">
+                            你的数据属于你,存储在你的设备上。
+                            真正的数据主权,真正的隐私保护,真正的不可替代性。
+                            这是你的数字资产,不是平台的内容。
+                        </p>
+                    </div>
+                </div>
+
+                <div class="philosophy-card">
+                    <div class="philosophy-number">05</div>
+                    <h3 class="philosophy-card-title">渐进披露 > 功能堆砌</h3>
+                    <div class="philosophy-card-content">
+                        <p>简单入门,深度可选。</p>
+                        <p style="margin-top: 15px;">
+                            默认极简,一键使用。随着你的深入使用,高级功能自然展现。
+                            不强迫教育,不堆砌功能,让价值驱动探索。
+                        </p>
+                    </div>
+                </div>
+
+                <div class="philosophy-card">
+                    <div class="philosophy-number">06</div>
+                    <h3 class="philosophy-card-title">人类主导 > AI自动</h3>
+                    <div class="philosophy-card-content">
+                        <p>增强判断力,而非替代。</p>
+                        <p style="margin-top: 15px;">
+                            我们永远不会做"AI自动决策"功能。
+                            决策权永远在人类手中,AI的作用是提供多维度的分析和建议,帮助你做出更明智的判断。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 核心原则 -->
+        <section class="principles-section">
+            <h2 class="section-heading">⚡ 核心设计原则</h2>
+            <div class="principles-list">
+                <div class="principle-item">
+                    <div class="principle-icon">🔍</div>
+                    <div class="principle-text">
+                        <h3>展现差异,而非判定优劣</h3>
+                        <p>我们不做AI排行榜,而是让你看到不同模型的思考方式</p>
+                    </div>
+                </div>
+                <div class="principle-item">
+                    <div class="principle-icon">🎯</div>
+                    <div class="principle-text">
+                        <h3>辅助决策,而非替代判断</h3>
+                        <p>决策权永远属于用户,AI只是提供分析视角的顾问</p>
+                    </div>
+                </div>
+                <div class="principle-item">
+                    <div class="principle-icon">💎</div>
+                    <div class="principle-text">
+                        <h3>沉淀资产,而非记录对话</h3>
+                        <p>每次对话都应该成为可复用、可增值的决策档案</p>
+                    </div>
+                </div>
+                <div class="principle-item">
+                    <div class="principle-icon">🔐</div>
+                    <div class="principle-text">
+                        <h3>本地优先,而非云端强制</h3>
+                        <p>数据主权在用户,建立真正的信任和所有权感</p>
+                    </div>
+                </div>
+                <div class="principle-item">
+                    <div class="principle-icon">📈</div>
+                    <div class="principle-text">
+                        <h3>简单入门,而非功能堆砌</h3>
+                        <p>默认极简,深度功能随使用自然展现</p>
+                    </div>
+                </div>
+                <div class="principle-item">
+                    <div class="principle-icon">⏰</div>
+                    <div class="principle-text">
+                        <h3>时间护城河,而非短期增长</h3>
+                        <p>用得越久越有价值,而非追求病毒式传播</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 引用 -->
+        <section class="quote-block">
+            <div class="quote-mark">"</div>
+            <p class="quote-text">
+                虫洞8°不是在做"更好的聊天记录",<br>
+                而是在创造一个全新的产品品类——<br>
+                <strong style="color: #00ff88;">多智能体协作的个人决策增强系统</strong>
+            </p>
+            <p class="quote-author">— Echo8 战略定位文档</p>
+        </section>
+
+        <!-- 时间护城河 -->
+        <section style="background: rgba(0, 255, 136, 0.05); border: 2px solid rgba(0, 255, 136, 0.3); border-radius: 20px; padding: 60px 40px; margin: 80px 0; text-align: center;">
+            <div style="font-size: 64px; margin-bottom: 20px;">⏰</div>
+            <h2 style="color: #fff; font-size: 36px; margin-bottom: 30px;">时间护城河</h2>
+            <p style="color: rgba(255, 255, 255, 0.85); font-size: 20px; line-height: 1.8; margin-bottom: 40px; max-width: 700px; margin-left: auto; margin-right: auto;">
+                <strong style="color: #00ff88;">真正值钱的不是这个插件</strong>,<br>
+                而是你日积月累的数据资产
+            </p>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; max-width: 900px; margin: 0 auto;">
+                <div style="background: rgba(0, 0, 0, 0.3); padding: 30px; border-radius: 12px;">
+                    <div style="color: #00ff88; font-size: 48px; margin-bottom: 15px;">📈</div>
+                    <div style="color: #fff; font-size: 18px; margin-bottom: 10px; font-weight: 600;">随时间增值</div>
+                    <div style="color: rgba(255, 255, 255, 0.7); font-size: 14px;">用得越久,价值越高</div>
+                </div>
+                <div style="background: rgba(0, 0, 0, 0.3); padding: 30px; border-radius: 12px;">
+                    <div style="color: #00ff88; font-size: 48px; margin-bottom: 15px;">🔒</div>
+                    <div style="color: #fff; font-size: 18px; margin-bottom: 10px; font-weight: 600;">无法迁移</div>
+                    <div style="color: rgba(255, 255, 255, 0.7); font-size: 14px;">你的数据,无法复制</div>
+                </div>
+                <div style="background: rgba(0, 0, 0, 0.3); padding: 30px; border-radius: 12px;">
+                    <div style="color: #00ff88; font-size: 48px; margin-bottom: 15px;">💎</div>
+                    <div style="color: #fff; font-size: 18px; margin-bottom: 10px; font-weight: 600;">数字资产</div>
+                    <div style="color: rgba(255, 255, 255, 0.7); font-size: 14px;">属于你的财富</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 永远不做清单 -->
+        <section class="philosophy-section">
+            <h2 class="section-heading">🚫 永远不做清单</h2>
+
+            <div class="philosophy-grid">
+                <div class="philosophy-card" style="border-color: rgba(255, 100, 100, 0.3);">
+                    <h3 class="philosophy-card-title" style="color: rgba(255, 100, 100, 0.8);">❌ 模型评分</h3>
+                    <div class="philosophy-card-content">
+                        <p><strong>诱惑:</strong> 用户总想知道哪个AI更好</p>
+                        <p style="margin-top: 10px;"><strong>陷阱:</strong> 一旦做了,就变成"模型排行榜"</p>
+                        <p style="margin-top: 10px;"><strong>坚守:</strong> 我们的价值在"展现差异"而非"判定优劣"</p>
+                    </div>
+                </div>
+
+                <div class="philosophy-card" style="border-color: rgba(255, 100, 100, 0.3);">
+                    <h3 class="philosophy-card-title" style="color: rgba(255, 100, 100, 0.8);">❌ 云端强制</h3>
+                    <div class="philosophy-card-content">
+                        <p><strong>诱惑:</strong> 云同步很方便,可以增加粘性</p>
+                        <p style="margin-top: 10px;"><strong>陷阱:</strong> 违背"个人数字资产"的定位</p>
+                        <p style="margin-top: 10px;"><strong>坚守:</strong> 本地优先,云端可选</p>
+                    </div>
+                </div>
+
+                <div class="philosophy-card" style="border-color: rgba(255, 100, 100, 0.3);">
+                    <h3 class="philosophy-card-title" style="color: rgba(255, 100, 100, 0.8);">❌ 社交化</h3>
+                    <div class="philosophy-card-content">
+                        <p><strong>诱惑:</strong> 让用户分享历史,形成社区</p>
+                        <p style="margin-top: 10px;"><strong>陷阱:</strong> 决策过程是私密的,强行社交会引起反感</p>
+                        <p style="margin-top: 10px;"><strong>坚守:</strong> 个人工具,不做社交</p>
+                    </div>
+                </div>
+
+                <div class="philosophy-card" style="border-color: rgba(255, 100, 100, 0.3);">
+                    <h3 class="philosophy-card-title" style="color: rgba(255, 100, 100, 0.8);">❌ 全自动决策</h3>
+                    <div class="philosophy-card-content">
+                        <p><strong>诱惑:</strong> AI自动做决策,用户不用思考</p>
+                        <p style="margin-top: 10px;"><strong>陷阱:</strong> 变成"AI替你决定",失去核心价值</p>
+                        <p style="margin-top: 10px;"><strong>坚守:</strong> 人类永远是决策者,AI只是顾问</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-links">
+                <a href="index.html" class="footer-link">首页</a>
+                <a href="philosophy.html" class="footer-link">设计哲学</a>
+                <a href="how-it-works.html" class="footer-link">工作原理</a>
+                <a href="use-cases.html" class="footer-link">使用场景</a>
+                <a href="roadmap.html" class="footer-link">路线图</a>
+                <a href="privacy.html" class="footer-link">隐私政策</a>
+                <a href="faq.html" class="footer-link">常见问题</a>
+                <a href="about.html" class="footer-link">关于</a>
+            </div>
+            <p class="copyright">
+                &copy; 2026 虫洞8° · 数据主权 · 本地优先 · 隐私至上<br>
+                <span style="color: rgba(0, 255, 136, 0.5); font-size: 12px; margin-top: 10px; display: block;">
+                    🌀 多智能体协作 · 决策增强 · 认知资产
+                </span>
+            </p>
+        </div>
+    </footer>
+
+    <!-- 脚本 -->
+    <script src="js/matrix-rain.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            MatrixRain('matrix-rain', 0.05);
+
+            // 导航栏激活状态
+            const currentPage = window.location.pathname.split('/').pop();
+            document.querySelectorAll('.nav-link').forEach(link => {
+                if (link.getAttribute('href') === currentPage) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+
+            // 动画效果
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.philosophy-card, .principle-item, .value-side').forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(card);
+            });
+        });
+    </script>
+</body>
+</html>

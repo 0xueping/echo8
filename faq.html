@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>常见问题 - 虫洞8°</title>
+    <meta name="description" content="虫洞8°常见问题解答:与Poe的区别、如何使用、数据安全、API配置等。">
+    <link rel="stylesheet" href="styles/matrix.css">
+    <style>
+        .page-header {
+            text-align: center;
+            padding: 100px 20px 60px;
+            border-bottom: 1px solid rgba(0, 255, 136, 0.2);
+            margin-bottom: 60px;
+        }
+
+        .page-badge {
+            display: inline-block;
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            color: #00ff88;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .page-title {
+            font-size: 52px;
+            color: #fff;
+            margin-bottom: 20px;
+            text-shadow: 0 0 40px rgba(0, 255, 136, 0.8);
+        }
+
+        .page-subtitle {
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        .faq-category {
+            margin-bottom: 80px;
+        }
+
+        .category-title {
+            font-size: 32px;
+            color: #fff;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(0, 255, 136, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .category-icon {
+            font-size: 36px;
+        }
+
+        .faq-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(0, 255, 136, 0.15);
+            border-radius: 16px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .faq-item:hover {
+            border-color: rgba(0, 255, 136, 0.3);
+            background: rgba(0, 255, 136, 0.05);
+        }
+
+        .faq-question {
+            padding: 30px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .faq-question-text {
+            color: #fff;
+            font-size: 18px;
+            font-weight: 600;
+            flex: 1;
+        }
+
+        .faq-toggle {
+            color: #00ff88;
+            font-size: 32px;
+            font-weight: bold;
+            transition: transform 0.3s;
+            flex-shrink: 0;
+        }
+
+        .faq-item.active .faq-toggle {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 1000px;
+            padding: 0 30px 30px;
+        }
+
+        .faq-answer-content {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 16px;
+            line-height: 1.8;
+            padding-top: 10px;
+            border-top: 1px solid rgba(0, 255, 136, 0.1);
+        }
+
+        .faq-answer-content strong {
+            color: #00ff88;
+        }
+
+        .faq-answer-content ul {
+            margin: 15px 0;
+            padding-left: 25px;
+        }
+
+        .faq-answer-content li {
+            margin-bottom: 10px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .comparison-table {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 16px;
+            padding: 40px;
+            margin: 40px 0;
+            overflow-x: auto;
+        }
+
+        .comparison-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .comparison-table th {
+            background: rgba(0, 255, 136, 0.1);
+            color: #00ff88;
+            padding: 20px;
+            text-align: left;
+            font-size: 16px;
+            border-bottom: 2px solid rgba(0, 255, 136, 0.3);
+        }
+
+        .comparison-table td {
+            padding: 18px 20px;
+            border-bottom: 1px solid rgba(0, 255, 136, 0.1);
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 15px;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(0, 255, 136, 0.05));
+            border: 2px solid rgba(0, 255, 136, 0.3);
+            border-radius: 16px;
+            padding: 40px;
+            margin: 60px 0;
+            text-align: center;
+        }
+
+        .highlight-title {
+            font-size: 28px;
+            color: #00ff88;
+            margin-bottom: 20px;
+        }
+
+        .highlight-text {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 18px;
+            line-height: 1.7;
+        }
+
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 38px;
+            }
+
+            .faq-question {
+                padding: 20px;
+            }
+
+            .faq-question-text {
+                font-size: 16px;
+            }
+
+            .comparison-table {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="matrix-rain"></canvas>
+
+    <div class="corner corner-tl"></div>
+    <div class="corner corner-tr"></div>
+    <div class="corner corner-bl"></div>
+    <div class="corner corner-br"></div>
+
+    <div class="container">
+        <nav class="navbar">
+            <a href="index.html" class="logo">
+                <span class="logo-emoji">🌀</span>
+                <span>虫洞8°</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">首页</a>
+                <a href="philosophy.html" class="nav-link">设计哲学</a>
+                <a href="how-it-works.html" class="nav-link">工作原理</a>
+                <a href="use-cases.html" class="nav-link">使用场景</a>
+                <a href="download.html" class="nav-link">下载</a>
+                <a href="docs.html" class="nav-link">文档</a>
+            </div>
+        </nav>
+
+        <section class="page-header">
+            <div class="page-badge">FAQ</div>
+            <h1 class="page-title">常见问题</h1>
+            <p class="page-subtitle">
+                关于虫洞8°的常见问题解答,帮助你更好地了解产品
+            </p>
+        </section>
+
+        <!-- 产品定位 -->
+        <div class="faq-category">
+            <h2 class="category-title">
+                <span class="category-icon">🎯</span>
+                产品定位
+            </h2>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <div class="faq-question-text">虫洞8°和Poe有什么区别?</div>
+                    <div class="faq-toggle">+</div>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p style="margin-bottom: 20px;">虫洞8°和Poe是完全不同类型的产品:</p>
+                        <div class="comparison-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>对比维度</th>
+                                        <th>Poe</th>
+                                        <th>虫洞8°</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>核心功能</strong></td>
+                                        <td>模型切换器,一个接一个地问</td>
+                                        <td>多AI并行,同时得到8个视角</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>数据存储</strong></td>
+                                        <td>云端存储</td>
+                                        <td>100%本地存储</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>产品定位</strong></td>
+                                        <td>AI聊天工具</td>
+                                        <td>决策增强系统</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>核心单位</strong></td>
+                                        <td>单条消息</td>
+                                        <td>Topic Card(决策档案)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>价值主张</strong></td>
+                                        <td>方便地使用不同AI</td>
+                                        <td>建立认知资产,提升判断力</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p style="margin-top: 20px;">
+                            <strong>简单来说:</strong> Poe是"如何方便地用不同的AI",虫洞8°是"如何通过多AI协作做出更好的决策"。
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <div class="faq-question-text">虫洞8°适合什么样的人使用?</div>
+                    <div class="faq-toggle">+</div>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>虫洞8°特别适合以下人群:</p>
+                        <ul>
+                            <li><strong>技术决策者:</strong> 需要做技术选型、架构设计的工程师和架构师</li>
+                            <li><strong>产品经理:</strong> 需要做产品规划、功能决策的PM</li>
+                            <li><strong>内容创作者:</strong> 需要多角度灵感的写作者、策划</li>
+                            <li><strong>商业分析师:</strong> 需要做市场分析、战略规划的分析师</li>
+                            <li><strong>研究者:</strong> 需要深入理解概念、多视角学习的研究者</li>
+                        </ul>
+                        <p style="margin-top: 15px;">
+                            如果你只是想随便聊聊天,虫洞8°可能不是最佳选择。但如果你需要<strong>做重要判断、做关键决策</strong>,虫洞8°会非常有价值。
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <div class="faq-question-text">为什么叫"虫洞8°"?</div>
+                    <div class="faq-toggle">+</div>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p><strong>"虫洞"</strong>象征着跨越维度:</p>
+                        <ul>
+                            <li>跨越单一AI的维度,同时连接8个AI视角</li>
+                            <li>跨越时间的维度,将历史决策转化为可复用的认知资产</li>
+                            <li>跨越信息的维度,从简单的问答提升到决策支持</li>
+                        </ul>
+                        <p style="margin-top: 15px;"><strong>"8°"</strong>代表:</p>
+                        <ul>
+                            <li>8个AI专家同时工作</li>
+                            <li>如同8个维度的思考</li>
+                            <li>形成全方位的认知视角</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 使用相关 -->
+        <div class="faq-category">
+            <h2 class="category-title">
+                <span class="category-icon">⚙️</span>
+                使用相关
+            </h2>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <div class="faq-question-text">如何开始使用虫洞8°?</div>
+                    <div class="faq-toggle">+</div>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p><strong>三步即可开始:</strong></p>
+                        <ol>
+                            <li style="margin-bottom: 15px;">
+                                <strong>下载安装:</strong> 从下载页面获取Chrome扩展,安装到浏览器<br>
+                                (未来会支持独立应用和更多平台)
+                            </li>
+                            <li style="margin-bottom: 15px;">
+                                <strong>配置API:</strong> 在设置中添加你的AI服务API密钥(OpenAI、Anthropic等)<br>
+                                你需要有自己的API账号,虫洞8°不提供免费额度
+                            </li>
+                            <li>
+                                <strong>开始提问:</strong> 打开侧边栏,输入你的问题,选择要启用的AI,点击发送!
+                            </li>
+                        </ol>
+                        <p style="margin-top: 15px;">
+                            <strong>注意:</strong> 虫洞8°不包含AI服务的费用,你需要在对应的AI平台充值API额度。
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <div class="faq-question-text">需要付费吗?</div>
+                    <div class="faq-toggle">+</div>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p><strong>虫洞8°本身是免费的</strong>,但使用AI服务需要付费:</p>
+                        <ul>
+                            <li>虫洞8°扩展: 完全免费,开源</li>
+                            <li>OpenAI API: 按使用量付费,约$0.002-0.03/1K tokens</li>
+                            <li>Claude API: 按使用量付费,约$0.003-0.015/1K tokens</li>
+                            <li>其他AI服务: 各自定价</li>
+                        </ul>
+                        <p style="margin-top: 15px;">
+                            使用虫洞8°时,费用直接从你在各AI平台的账户扣除,我们不收取任何中间费用。
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <div class="faq-question-text">支持哪些AI模型?</div>
+                    <div class="faq-toggle">+</div>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>虫洞8°支持主流的AI模型,包括:</p>
+                        <ul>
+                            <li>OpenAI: GPT-4, GPT-3.5</li>
+                            <li>Anthropic: Claude 3 Opus/Sonnet/Haiku</li>
+                            <li>Google: Gemini Pro/Ultra</li>
+                            <li>更多模型持续添加中...</li>
+                        </ul>
+                        <p style="margin-top: 15px;">
+                            你可以自由选择启用哪些模型,最多同时启用8个。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 数据安全 -->
+        <div class="faq-category">
+            <h2 class="category-title">
+                <span class="category-icon">🔐</span>
+                数据安全
+            </h2>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <div class="faq-question-text">我的数据安全吗?</div>
+                    <div class="faq-toggle">+</div>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p><strong>非常安全。</strong>虫洞8°的核心设计原则就是"本地优先,数据主权":</p>
+                        <ul>
+                            <li>所有对话历史存储在你的浏览器IndexedDB中</li>
+                            <li>我们无法访问、查看或收集你的数据</li>
+                            <li>不经过任何虫洞8°的服务器</li>
+                            <li>不需要注册账号,不收集个人信息</li>
+                            <li>支持一键导出所有数据为JSON格式</li>
+                        </ul>
+                        <p style="margin-top: 15px;">
+                            你的API密钥也只存储在本地,我们无法访问。详见<a href="privacy.html" style="color: #00ff88;">隐私政策</a>。
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <div class="faq-question-text">卸载扩展后数据会丢失吗?</div>
+                    <div class="faq-toggle">+</div>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p><strong>会的。</strong>Chrome扩展卸载时会清除所有本地数据。</p>
+                        <p style="margin-top: 15px;">
+                            建议在卸载前使用<strong>导出功能</strong>将所有数据导出为JSON文件,这样即使卸载了,你的对话历史也不会丢失。
+                        </p>
+                        <p style="margin-top: 15px;">
+                            导出的JSON文件是标准格式,即使虫洞8°不存在了,你也可以用任何文本编辑器查看。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 技术问题 -->
+        <div class="faq-category">
+            <h2 class="category-title">
+                <span class="category-icon">🔧</span>
+                技术问题
+            </h2>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <div class="faq-question-text">为什么需要API密钥?</div>
+                    <div class="faq-toggle">+</div>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>虫洞8°是<strong>客户端工具</strong>,不是AI服务提供商:</p>
+                        <ul>
+                            <li>我们不提供AI服务,只是帮助你更好地使用现有的AI服务</li>
+                            <li>你需要向AI服务提供商(OpenAI、Anthropic等)申请API密钥</li>
+                            <li>使用虫洞8°时,费用从你在AI平台的账户扣除</li>
+                            <li>我们不从中收取任何费用</li>
+                        </ul>
+                        <p style="margin-top: 15px;">
+                            这种模式的好处是:你完全掌控数据,我们不作为中间人,真正的端到端加密。
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <div class="faq-question-text">支持其他浏览器吗?</div>
+                    <div class="faq-toggle">+</div>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p><strong>当前版本:</strong></p>
+                        <ul>
+                            <li>Chrome 88+</li>
+                            <li>Edge 88+ (基于Chromium)</li>
+                            <li>其他基于Chromium的浏览器(Brave、Opera等)</li>
+                        </ul>
+                        <p style="margin-top: 15px;"><strong>未来计划:</strong></p>
+                        <ul>
+                            <li>Firefox版本</li>
+                            <li>Safari版本</li>
+                            <li>独立桌面应用(Windows/macOS/Linux)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <div class="faq-question-text">开源吗?可以自己部署吗?</div>
+                    <div class="faq-toggle">+</div>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p><strong>是的,完全开源!</strong></p>
+                        <ul>
+                            <li>核心代码在GitHub上开源,使用MIT许可证</li>
+                            <li>你可以自由查看、审计、fork和修改</li>
+                            <li>支持自部署,可以部署在自己的服务器上</li>
+                            <li>欢迎贡献代码,一起改进产品</li>
+                        </ul>
+                        <p style="margin-top: 15px;">
+                            开源意味着透明,你可以验证我们确实按照承诺保护你的隐私。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 核心价值 -->
+        <div class="highlight-box">
+            <div class="highlight-title">💡 核心要点</div>
+            <div class="highlight-text">
+                虫洞8°不是AI聊天工具,而是<strong>决策增强系统</strong><br>
+                不是为了聊天,而是为了<strong>做出更好的决策</strong><br>
+                不是存储聊天记录,而是积累<strong>认知资产</strong>
+            </div>
+        </div>
+
+        <!-- 更多问题 -->
+        <section style="text-align: center; margin: 80px 0 40px;">
+            <h2 style="font-size: 32px; color: #fff; margin-bottom: 20px;">还有问题?</h2>
+            <p style="color: rgba(255, 255, 255, 0.7); font-size: 18px; margin-bottom: 40px;">
+                查看完整文档或联系我们
+            </p>
+            <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                <a href="docs.html" class="btn btn-primary" style="padding: 16px 40px; font-size: 18px;">
+                    <span>📖</span>
+                    查看文档
+                </a>
+                <a href="about.html" class="btn btn-secondary" style="padding: 16px 40px; font-size: 18px;">
+                    <span>📧</span>
+                    联系我们
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-links">
+                <a href="index.html" class="footer-link">首页</a>
+                <a href="philosophy.html" class="footer-link">设计哲学</a>
+                <a href="how-it-works.html" class="footer-link">工作原理</a>
+                <a href="use-cases.html" class="footer-link">使用场景</a>
+                <a href="roadmap.html" class="footer-link">路线图</a>
+                <a href="privacy.html" class="footer-link">隐私政策</a>
+                <a href="faq.html" class="footer-link">常见问题</a>
+                <a href="about.html" class="footer-link">关于</a>
+            </div>
+            <p class="copyright">
+                &copy; 2026 虫洞8° · 数据主权 · 本地优先 · 隐私至上
+            </p>
+        </div>
+    </footer>
+
+    <script src="js/matrix-rain.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            MatrixRain('matrix-rain', 0.05);
+
+            const currentPage = window.location.pathname.split('/').pop();
+            document.querySelectorAll('.nav-link').forEach(link => {
+                if (link.getAttribute('href') === currentPage) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+
+            // FAQ展开
+            document.querySelectorAll('.faq-question').forEach(question => {
+                question.addEventListener('click', function() {
+                    const faqItem = this.parentElement;
+                    const isActive = faqItem.classList.contains('active');
+
+                    // 关闭其他
+                    document.querySelectorAll('.faq-item').forEach(item => {
+                        item.classList.remove('active');
+                    });
+
+                    // 切换当前
+                    if (!isActive) {
+                        faqItem.classList.add('active');
+                    }
+                });
+            });
+
+            // 动画
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.faq-item').forEach(item => {
+                item.style.opacity = '0';
+                item.style.transform = 'translateY(20px)';
+                item.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(item);
+            });
+        });
+    </script>
+</body>
+</html>

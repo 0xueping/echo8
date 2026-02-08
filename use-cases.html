@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>使用场景 - 虫洞8°</title>
+    <meta name="description" content="虫洞8°的典型使用场景:技术决策、内容创作、商业分析、学习研究、产品规划等。">
+    <link rel="stylesheet" href="styles/matrix.css">
+    <style>
+        .page-header {
+            text-align: center;
+            padding: 100px 20px 60px;
+            border-bottom: 1px solid rgba(0, 255, 136, 0.2);
+            margin-bottom: 60px;
+        }
+
+        .page-badge {
+            display: inline-block;
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            color: #00ff88;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .page-title {
+            font-size: 52px;
+            color: #fff;
+            margin-bottom: 20px;
+            text-shadow: 0 0 40px rgba(0, 255, 136, 0.8);
+        }
+
+        .page-subtitle {
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        .scenario-section {
+            margin-bottom: 100px;
+        }
+
+        .section-title {
+            font-size: 36px;
+            color: #fff;
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+        .scenario-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(0, 255, 136, 0.15);
+            border-radius: 20px;
+            padding: 50px;
+            margin-bottom: 50px;
+            transition: all 0.3s;
+        }
+
+        .scenario-card:hover {
+            border-color: rgba(0, 255, 136, 0.3);
+            background: rgba(0, 255, 136, 0.05);
+            box-shadow: 0 0 40px rgba(0, 255, 136, 0.15);
+        }
+
+        .scenario-header {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .scenario-icon {
+            font-size: 64px;
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 255, 136, 0.1);
+            border-radius: 20px;
+            flex-shrink: 0;
+        }
+
+        .scenario-title {
+            font-size: 32px;
+            color: #fff;
+            margin: 0;
+        }
+
+        .scenario-subtitle {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 16px;
+            margin-top: 8px;
+        }
+
+        .scenario-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 30px;
+        }
+
+        .scenario-section-title {
+            font-size: 20px;
+            color: #00ff88;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .scenario-text {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.8;
+            font-size: 15px;
+        }
+
+        .scenario-example {
+            background: rgba(0, 0, 0, 0.3);
+            border-left: 3px solid rgba(0, 255, 136, 0.5);
+            padding: 20px;
+            border-radius: 0 8px 8px 0;
+            margin-top: 15px;
+        }
+
+        .scenario-example-title {
+            color: #00ff88;
+            font-size: 14px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .scenario-example-text {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        .benefits-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 15px;
+        }
+
+        .benefits-list li {
+            color: rgba(0, 255, 136, 0.9);
+            padding: 10px 0;
+            padding-left: 25px;
+            position: relative;
+            font-size: 15px;
+        }
+
+        .benefits-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #00ff88;
+            font-weight: bold;
+        }
+
+        .workflow {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 12px;
+            padding: 25px;
+            margin-top: 20px;
+        }
+
+        .workflow-step {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(0, 255, 136, 0.1);
+        }
+
+        .workflow-step:last-child {
+            border-bottom: none;
+        }
+
+        .step-number {
+            background: rgba(0, 255, 136, 0.2);
+            color: #00ff88;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .step-text {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 14px;
+        }
+
+        @media (max-width: 1024px) {
+            .scenario-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 38px;
+            }
+
+            .scenario-card {
+                padding: 30px 20px;
+            }
+
+            .scenario-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .scenario-title {
+                font-size: 26px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="matrix-rain"></canvas>
+
+    <div class="corner corner-tl"></div>
+    <div class="corner corner-tr"></div>
+    <div class="corner corner-bl"></div>
+    <div class="corner corner-br"></div>
+
+    <div class="container">
+        <nav class="navbar">
+            <a href="index.html" class="logo">
+                <span class="logo-emoji">🌀</span>
+                <span>虫洞8°</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">首页</a>
+                <a href="philosophy.html" class="nav-link">设计哲学</a>
+                <a href="how-it-works.html" class="nav-link">工作原理</a>
+                <a href="use-cases.html" class="nav-link active">使用场景</a>
+                <a href="download.html" class="nav-link">下载</a>
+                <a href="docs.html" class="nav-link">文档</a>
+            </div>
+        </nav>
+
+        <section class="page-header">
+            <div class="page-badge">Use Cases</div>
+            <h1 class="page-title">使用场景</h1>
+            <p class="page-subtitle">
+                虫洞8°适用于各种需要深度思考和多方视角的决策场景
+            </p>
+        </section>
+
+        <!-- 技术决策 -->
+        <div class="scenario-section">
+            <div class="scenario-card">
+                <div class="scenario-header">
+                    <div class="scenario-icon">💻</div>
+                    <div>
+                        <h2 class="scenario-title">技术决策</h2>
+                        <div class="scenario-subtitle">技术选型、架构设计、代码评审</div>
+                    </div>
+                </div>
+                <div class="scenario-content">
+                    <div>
+                        <h3 class="scenario-section-title">🎯 适用场景</h3>
+                        <p class="scenario-text">
+                            当你需要做出重要的技术决策时,单一视角可能存在盲区。虫洞8°让8个AI专家同时分析,帮你识别风险、发现最佳实践。
+                        </p>
+                        <div class="scenario-example">
+                            <div class="scenario-example-title">示例:前端框架选型</div>
+                            <div class="scenario-example-text">
+                                "我应该选择Vue还是React?考虑到团队现状和项目需求,哪个更合适?"
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="scenario-section-title">✨ 核心价值</h3>
+                        <ul class="benefits-list">
+                            <li>看到不同AI对技术栈的偏好和理由</li>
+                            <li>识别潜在的技术陷阱和风险</li>
+                            <li>获得最佳实践建议</li>
+                            <li>保存决策过程,便于后续复盘</li>
+                        </ul>
+                        <div class="workflow">
+                            <div class="workflow-step">
+                                <div class="step-number">1</div>
+                                <div class="step-text">描述技术背景和需求</div>
+                            </div>
+                            <div class="workflow-step">
+                                <div class="step-number">2</div>
+                                <div class="step-text">8个AI专家并行分析</div>
+                            </div>
+                            <div class="workflow-step">
+                                <div class="step-number">3</div>
+                                <div class="step-text">对比共识和分歧点</div>
+                            </div>
+                            <div class="workflow-step">
+                                <div class="step-number">4</div>
+                                <div class="step-text">做出决策并标注理由</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 内容创作 -->
+        <div class="scenario-section">
+            <div class="scenario-card">
+                <div class="scenario-header">
+                    <div class="scenario-icon">✍️</div>
+                    <div>
+                        <h2 class="scenario-title">内容创作</h2>
+                        <div class="scenario-subtitle">文章写作、创意策划、方案设计</div>
+                    </div>
+                </div>
+                <div class="scenario-content">
+                    <div>
+                        <h3 class="scenario-section-title">🎯 适用场景</h3>
+                        <p class="scenario-text">
+                            创作时需要多角度启发?8个AI专家提供不同的创意方向、论证角度和表达方式,让你的内容更有深度和广度。
+                        </p>
+                        <div class="scenario-example">
+                            <div class="scenario-example-title">示例:技术文章大纲</div>
+                            <div class="scenario-example-text">
+                                "我要写一篇关于'微服务架构'的技术文章,目标读者是架构师,请提供不同的文章结构和切入点"
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="scenario-section-title">✨ 核心价值</h3>
+                        <ul class="benefits-list">
+                            <li>获得多样化的创意角度</li>
+                            <li>发现未曾考虑的论证方向</li>
+                            <li>丰富内容的层次和深度</li>
+                            <li>整合不同观点形成独特见解</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 商业分析 -->
+        <div class="scenario-section">
+            <div class="scenario-card">
+                <div class="scenario-header">
+                    <div class="scenario-icon">📊</div>
+                    <div>
+                        <h2 class="scenario-title">商业分析</h2>
+                        <div class="scenario-subtitle">市场分析、竞品研究、战略规划</div>
+                    </div>
+                </div>
+                <div class="scenario-content">
+                    <div>
+                        <h3 class="scenario-section-title">🎯 适用场景</h3>
+                        <p class="scenario-text">
+                            商业决策需要综合考虑市场、技术、竞争等多个维度。8个AI专家从不同角度分析,帮你做出更明智的商业决策。
+                        </p>
+                        <div class="scenario-example">
+                            <div class="scenario-example-title">示例:产品定价策略</div>
+                            <div class="scenario-example-text">
+                                "我们要推出一款新的SaaS产品,目标用户是中小企业,应该如何定价?请提供不同的定价策略和利弊分析"
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="scenario-section-title">✨ 核心价值</h3>
+                        <ul class="benefits-list">
+                            <li>多维度分析商业问题</li>
+                            <li>识别潜在的商业风险</li>
+                            <li>获得不同的策略选项</li>
+                            <li>综合各方意见优化决策</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 学习研究 -->
+        <div class="scenario-section">
+            <div class="scenario-card">
+                <div class="scenario-header">
+                    <div class="scenario-icon">📚</div>
+                    <div>
+                        <h2 class="scenario-title">学习研究</h2>
+                        <div class="scenario-subtitle">概念理解、文献综述、问题探究</div>
+                    </div>
+                </div>
+                <div class="scenario-content">
+                    <div>
+                        <h3 class="scenario-section-title">🎯 适用场景</h3>
+                        <p class="scenario-text">
+                            学习新概念或深入研究某个主题时,不同AI的解释方式和知识结构可以帮助你更全面地理解。
+                        </p>
+                        <div class="scenario-example">
+                            <div class="scenario-example-title">示例:深度学习概念理解</div>
+                            <div class="scenario-example-text">
+                                "请用不同的方式解释'transformer架构',包括直觉理解、技术细节和实际应用"
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="scenario-section-title">✨ 核心价值</h3>
+                        <ul class="benefits-list">
+                            <li>从多个角度理解复杂概念</li>
+                            <li>获得不同深度的解释</li>
+                            <li>发现知识的不同应用场景</li>
+                            <li>构建更完整的知识体系</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 产品规划 -->
+        <div class="scenario-section">
+            <div class="scenario-card">
+                <div class="scenario-header">
+                    <div class="scenario-icon">🚀</div>
+                    <div>
+                        <h2 class="scenario-title">产品规划</h2>
+                        <div class="scenario-subtitle">功能设计、用户体验、产品定位</div>
+                    </div>
+                </div>
+                <div class="scenario-content">
+                    <div>
+                        <h3 class="scenario-section-title">🎯 适用场景</h3>
+                        <p class="scenario-text">
+                            规划产品功能时,需要考虑用户需求、技术可行性、市场竞争力等多个方面。8个AI专家提供全面的视角。
+                        </p>
+                        <div class="scenario-example">
+                            <div class="scenario-example-title">示例:新功能评估</div>
+                            <div class="scenario-example-text">
+                                "我们正在考虑为产品添加'AI辅助写作'功能,请从用户价值、技术实现、市场竞争等角度分析可行性"
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="scenario-section-title">✨ 核心价值</h3>
+                        <ul class="benefits-list">
+                            <li>平衡用户需求和商业目标</li>
+                            <li>评估技术实现难度</li>
+                            <li>分析市场竞争态势</li>
+                            <li>优化产品功能优先级</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <section style="text-align: center; margin: 100px 0 60px; padding: 60px; background: rgba(0, 255, 136, 0.05); border: 1px solid rgba(0, 255, 136, 0.2); border-radius: 20px;">
+            <h2 style="font-size: 38px; color: #fff; margin-bottom: 20px; text-shadow: 0 0 30px rgba(0, 255, 136, 0.6);">🎯 开始你的决策之旅</h2>
+            <p style="color: rgba(255, 255, 255, 0.8); font-size: 18px; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto;">
+                无论你是技术专家、内容创作者、产品经理还是研究者<br>
+                虫洞8°都能为你提供多视角的决策支持
+            </p>
+            <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                <a href="download.html" class="btn btn-primary" style="padding: 16px 40px; font-size: 18px;">
+                    <span>⚡</span>
+                    立即下载
+                </a>
+                <a href="how-it-works.html" class="btn btn-secondary" style="padding: 16px 40px; font-size: 18px;">
+                    <span>📖</span>
+                    了解工作原理
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-links">
+                <a href="index.html" class="footer-link">首页</a>
+                <a href="philosophy.html" class="footer-link">设计哲学</a>
+                <a href="how-it-works.html" class="footer-link">工作原理</a>
+                <a href="use-cases.html" class="footer-link">使用场景</a>
+                <a href="roadmap.html" class="footer-link">路线图</a>
+                <a href="privacy.html" class="footer-link">隐私政策</a>
+                <a href="faq.html" class="footer-link">常见问题</a>
+                <a href="about.html" class="footer-link">关于</a>
+            </div>
+            <p class="copyright">
+                &copy; 2026 虫洞8° · 数据主权 · 本地优先 · 隐私至上
+            </p>
+        </div>
+    </footer>
+
+    <script src="js/matrix-rain.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            MatrixRain('matrix-rain', 0.05);
+
+            const currentPage = window.location.pathname.split('/').pop();
+            document.querySelectorAll('.nav-link').forEach(link => {
+                if (link.getAttribute('href') === currentPage) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.scenario-card').forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(card);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Echo8 VLog</title>
+
+    <style>
+        /* 全局字体：让中文用苹方/雅黑，避免黑体 */
+        html, body {
+        font-family: "PingFang SC", "Microsoft YaHei",
+                    -apple-system, BlinkMacSystemFont,
+                    "SF Pro Text", "SF Pro Display",
+                    "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji",
+                    sans-serif !important;
+
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        }
+
+            /* 你原来的 CSS，从这里开始 */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Consolas', 'Monaco', 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', monospace;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        
+        /* ══════════════════════════════════════════════════════════ */
+        /* 暖场舞台样式（完全不动！） */
+        /* ══════════════════════════════════════════════════════════ */
+        #warmup-stage {
+            display: block;
+            background: #0a0a0f;
+            color: #00ff88;
+            height: 100vh;
+            position: relative;
+        }
+        
+        #matrix-rain {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 1;
+            opacity: 0.3;
+        }
+        
+        .stage {
+            position: relative;
+            z-index: 10;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+        }
+        
+        .data-ticker {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 5px;
+            font-size: 12px;
+            color: rgba(0,255,136,0.7);
+            text-shadow: 0 0 5px rgba(0,255,136,0.5);
+            width: auto;
+            max-width: 90%;
+        }
+        
+        .data-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            opacity: 0;
+            animation: fadeInUp 0.5s ease forwards;
+        }
+        
+        .data-item:nth-child(1) { animation-delay: 0.5s; }
+        .data-item:nth-child(2) { animation-delay: 1s; }
+        .data-item:nth-child(3) { animation-delay: 1.5s; }
+        .data-item:nth-child(4) { animation-delay: 2s; }
+        .data-item:nth-child(5) { animation-delay: 2.5s; }
+        
+        .data-icon { font-size: 18px; }
+        .data-value { 
+            color: rgba(0, 255, 136, 0.8);  /* 80%透明的Matrix绿 */
+        /*    font-weight: bold;  */
+        }
+        
+        .data-change.up { color: #00ff88; }
+        
+        .model-logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .model-logo {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 0 8px rgba(0, 255, 136, 0.5);
+            opacity: 0;
+            animation: flyIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        #warmup-stage .model-logo { width: 24px; height: 24px; }
+                .nodeLabel, .label, .edgeLabel, text {
+                    display: none !important;
+        }
+
+
+
+.model-avatar:nth-child(1) .model-logo { animation-delay: 2.5s; transform: translate(-100px, -100px); }
+.model-avatar:nth-child(2) .model-logo { animation-delay: 2.6s; transform: translate(100px, -100px); }
+.model-avatar:nth-child(3) .model-logo { animation-delay: 2.7s; transform: translate(-100px, 100px); }
+.model-avatar:nth-child(4) .model-logo { animation-delay: 2.8s; transform: translate(100px, 100px); }
+.model-avatar:nth-child(5) .model-logo { animation-delay: 2.9s; transform: translate(-150px, 0); }
+.model-avatar:nth-child(6) .model-logo { animation-delay: 3.0s; transform: translate(150px, 0); }
+.model-avatar:nth-child(7) .model-logo { animation-delay: 3.1s; transform: translate(0, -150px); }
+.model-avatar:nth-child(8) .model-logo { animation-delay: 3.2s; transform: translate(0, 150px); }
+
+        #warmup-stage .model-logo {
+            width: 32px;
+            height: 32px;
+        }
+
+
+
+        .model-avatar {
+        position: relative;
+        display: inline-block;
+        }
+
+    .model-toast {
+        position: absolute;
+        padding: 2px 6px;   /* 上下更薄，左右更窄 */
+        font-size: 11px;    /* 更精致 */
+        border-radius: 4px; /* 更小的圆角更协调 */
+        background: rgba(255, 255, 255, 0.2); 
+        color: #fff; 
+        text-shadow: 0 0 4px rgba(0,0,0,0.6);
+        opacity: 0;
+        transform: scale(0.9);
+        transition: opacity 0.3s ease-in, transform 0.3s ease-out;
+        pointer-events: none;
+        z-index: 999999;
+    }
+
+
+        .model-toast.show {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .model-avatar:nth-child(1) .model-logo { transform: translate(-110px, -100px); }
+        .model-avatar:nth-child(2) .model-logo { transform: translate(90px, -100px); }
+        .model-avatar:nth-child(3) .model-logo { transform: translate(-110px, 100px); }
+        .model-avatar:nth-child(4) .model-logo { transform: translate(90px, 100px); }
+        .model-avatar:nth-child(5) .model-logo { transform: translate(-160px, 0); }
+        .model-avatar:nth-child(6) .model-logo { transform: translate(140px, 0); }
+        .model-avatar:nth-child(7) .model-logo { transform: translate(-10px, -150px); }
+        .model-avatar:nth-child(8) .model-logo { transform: translate(-10px, 150px); }
+
+        @keyframes fadeInOut {
+            0%   { opacity: 0; transform: translateY(4px); }
+            20%  { opacity: 1; transform: translateY(0); }
+            80%  { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(-4px); }
+        }
+
+        .model-toast.show {
+            opacity: 1;
+        }
+
+
+
+        .quote-container {
+            text-align: center;
+            max-width: 800px;
+        }
+
+        .quote-main {
+            font-size: 26px;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 0 0 30px rgba(0, 255, 136, 0.8);
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: glowIn 1s ease 3s forwards;
+        }
+        
+        .quote-sub {
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.6);
+            opacity: 0;
+            animation: fadeIn 1s ease 4s forwards;
+        }
+        
+        .ai-avatar {
+            position: absolute;
+            bottom: 100px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            opacity: 0;
+            transform: scale(0.8) translateY(30px);
+            animation: avatarEntry 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 6s forwards;
+        }
+        
+        .avatar-circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 40px rgba(79, 70, 229, 0.6);
+            animation: pulse 2s infinite 6s;
+            background: none;
+        }
+
+        .avatar-circle .avatar-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            border-radius: 50%;
+        }
+        
+        .avatar-name {
+            font-size: 24px;
+            color: #fff;
+            font-weight: 600;
+        }
+        
+        .avatar-status {
+            font-size: 14px;
+            color: rgba(0, 255, 136, 0.8);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: #00ff88;
+            border-radius: 50%;
+            animation: blink 1s infinite;
+        }
+        
+        .timestamp {
+            position: absolute;
+            bottom: 30px;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.4);
+            letter-spacing: 2px;
+        }
+        
+        .scanline {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(transparent 50%, rgba(0, 0, 0, 0.1) 50%);
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 100;
+        }
+        
+        .corner {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            border: 2px solid rgba(0, 255, 136, 0.3);
+            z-index: 50;
+        }
+        .corner-tl { top: 20px; left: 20px; border-right: none; border-bottom: none; }
+        .corner-tr { top: 20px; right: 20px; border-left: none; border-bottom: none; }
+        .corner-bl { bottom: 20px; left: 20px; border-right: none; border-top: none; }
+        .corner-br { bottom: 20px; right: 20px; border-left: none; border-top: none; }
+        
+        
+        /* ══════════════════════════════════════════════════════════ */
+        /* ⭐ VLog演播厅 - 低调、暗色、字幕感 */
+        /* ══════════════════════════════════════════════════════════ */
+        #vlog-stage {
+            display: none;
+            background: #0a0a0f;  /* 和暖场一样的黑色 */
+            color: #f0f0f0;
+            height: 100vh;
+            position: relative;
+        }
+        
+        /* ⭐ 代码雨 - 更暗 */
+        #vlog-matrix-rain {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 1;
+            opacity: 0.3;  /* ⭐ 比暖场更暗（暖场是0.3） */
+        }
+        
+        /* 扫描线 */
+        #vlog-stage .scanline {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(transparent 50%, rgba(0, 0, 0, 0.1) 50%);
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 100;
+        }
+        
+        /* ⭐ 顶部状态栏 - 低调 */
+        .vlog-header {
+            position: absolute;
+            top: 20px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 30px;
+            z-index: 200;
+            opacity: 0.7;  /* ⭐ 半透明，不抢眼 */
+        }
+        
+        .vlog-avatar-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .vlog-avatar-circle {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.2);  /* ⭐ 淡边框 */
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+            animation: breathe 2s ease-in-out infinite;
+        }
+        
+        .vlog-avatar-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .vlog-name {
+            font-size: 20px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.8);  /* ⭐ 不太亮 */
+        }
+        
+        /* ⭐ LIVE 状态 - 低调 */
+        .vlog-live-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 0, 0, 0.1);
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            padding: 12px 28px;
+            border-radius: 25px;
+            font-size: 15px;
+            color: rgba(255, 100, 100, 0.9);
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-weight: 600;
+        }
+        
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            background: #ff0000;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #ff0000;
+            animation: blink 1s infinite;
+        }
+        
+        /* ⭐ 中间文字区 - 亮白色字幕感 */
+        #vlog-content-wrapper {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            
+            width: 90%;
+            max-width: 1000px;
+            height: 75vh;          /* ⭐ 拉高到75vh，显示更多内容 */
+            
+            overflow: hidden;      /* ⭐ 关键：隐藏溢出，允许 transformY 上推 */
+            padding: 40px;
+            z-index: 10;
+        }
+
+        
+        #vlog-content {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            transform: translateY(0);
+            transition: transform 0.2s linear;
+            font-family: "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji",
+                        system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+                        "PingFang SC", "Microsoft YaHei", sans-serif;
+        }
+        .vlog-line {
+            font-size: 17px;   /* 原来是 20px，可以调大一点 */
+            line-height: 1.9;
+            margin-bottom: 6px;
+            color: #f5f5f5;
+        }
+
+        .vlog-emoji {
+            font-size: 17px;
+            font-family: 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif;
+            animation: emojiPop 0.2s ease-out;
+            will-change: transform;
+        }
+
+
+
+        /* 每个字出现时轻微抖动 */
+        .vlog-char {
+            display: inline-block;
+            animation: pop 0.12s ease-out;
+        }
+
+        @keyframes pop {
+            0%   { transform: scale(0.85); opacity: 0.4; }
+            60%  { transform: scale(1.05); opacity: 1; }
+            100% { transform: scale(1); }
+        }
+
+        /* 打字机光标 */
+        #typing-cursor {
+            display: inline-block;
+            width: 10px;
+            height: 1.2em;
+            background: #00ff88;
+            margin-left: 4px;
+            animation: blink 0.8s step-end infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50%      { opacity: 0; }
+        }
+
+        /* 字幕容器（关键定位） */
+        #vlog-content-wrapper {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 1000px;
+            height: 60vh;
+            overflow: hidden;
+            padding: 40px;
+            z-index: 10;
+        }
+
+        #vlog-content {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            transform: translateY(0);
+            transition: transform 0.2s linear;
+        }
+
+        /* 字体抖动动画 */
+        .vlog-char {
+            display: inline-block;
+            animation: pop 0.12s ease-out;
+            will-change: transform;
+        }
+
+        @keyframes pop {
+            0%   { transform: scale(0.85); opacity: 0.4; }
+            60%  { transform: scale(1.05); opacity: 1; }
+            100% { transform: scale(1); }
+        }
+
+        /* emoji 弹跳动画 */
+        .vlog-emoji {
+            display: inline-block;
+            animation: emojiPop 0.2s ease-out;
+            will-change: transform;
+        }
+
+        @keyframes emojiPop {
+            0%   { transform: scale(0.7) rotate(-10deg); opacity: 0.5; }
+            60%  { transform: scale(1.2) rotate(10deg); opacity: 1; }
+            100% { transform: scale(1) rotate(0deg); }
+        }
+
+        /* 打字机光标 */
+        #typing-cursor {
+            display: inline-block;
+            width: 10px;
+            height: 1.2em;
+            background: #00ff88;
+            margin-left: 4px;
+            animation: blink 0.8s step-end infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50%      { opacity: 0; }
+        }
+
+
+        #vlog-content-wrapper {
+            height: 60vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        
+        /* ⭐ 底部输入栏 - 低调暗色 */
+        .vlog-input-bar {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 800px;
+            display: flex;
+            gap: 15px;
+            z-index: 200;
+            opacity: 0.6;  /* ⭐ 半透明，不抢眼 */
+        }
+        
+        .vlog-input-bar:hover {
+            opacity: 1;  /* 鼠标悬停时才显示完整 */
+        }
+        
+        .vlog-input {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 25px;
+            padding: 12px 24px;
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.8);
+            font-family: 'Consolas', 'Monaco', monospace;
+            outline: none;
+            transition: all 0.3s;
+        }
+        
+        .vlog-input::placeholder {
+            font-family: 'Consolas', 'Monaco', monospace;
+            color: rgba(255, 255, 255, 0.3);
+        }
+        
+        .vlog-input:focus {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+        
+        .vlog-exit-btn {
+            background: rgba(255, 0, 0, 0.08);
+            border: 1px solid rgba(255, 0, 0, 0.25);
+            color: rgba(255, 100, 100, 0.8);
+            padding: 12px 28px;
+            border-radius: 25px;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Consolas', 'Monaco', monospace;
+        }
+        
+        .vlog-exit-btn:hover {
+            background: rgba(255, 0, 0, 0.15);
+            border-color: rgba(255, 0, 0, 0.4);
+        }
+        
+        .vlog-exit-btn:active {
+            transform: scale(0.95);
+        }
+        
+        /* ══════════════════════════════════════════════════════════ */
+        /* 动画 */
+        /* ══════════════════════════════════════════════════════════ */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes glowIn {
+            from { opacity: 0; transform: scale(0.9); text-shadow: 0 0 0 transparent; }
+            to { opacity: 1; transform: scale(1); text-shadow: 0 0 30px rgba(0, 255, 136, 0.8); }
+        }
+        
+        @keyframes flyIn {
+            from { opacity: 0; }
+            to { opacity: 1; transform: translate(0, 0); }
+        }
+        
+        @keyframes avatarEntry {
+            from { opacity: 0; transform: scale(0.8) translateY(30px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 40px rgba(79, 70, 229, 0.6); }
+            50% { box-shadow: 0 0 60px rgba(79, 70, 229, 0.9); }
+        }
+        
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0.3; }
+        }
+
+        /* 呼吸动画 */
+        @keyframes breathe {
+            0%, 100% { 
+                transform: scale(1);
+                opacity: 0.9;
+            }
+            50% { 
+                transform: scale(1.08);
+                opacity: 1;
+            }
+        }
+
+        /* ============================================================
+        平叔头像背景 - VLog播报阶段和暖场阶段一样
+        ============================================================ */
+
+        /* VLog播报阶段的头像（小的）- 和暖场一模一样的颜色 */
+        .vlog-avatar-circle {
+            background: rgba(255, 255, 255, 0.15) !important;  /* 和暖场一样 */
+            backdrop-filter: blur(10px);  /* 和暖场一样 */
+            border: 1px solid rgba(255, 255, 255, 0.2) !important;
+            box-shadow: 0 0 40px rgba(79, 70, 229, 0.6);  /* 和暖场一样的光晕 */
+        }
+
+
+        /* ============================================================
+        主窗口同步面板 - 右侧显示
+        ============================================================ */
+        /* ⭐ 同步切换按钮 - 在LIVE按钮左边 */
+        .vlog-sync-toggle-btn {
+            padding: 12px 28px;
+            background: rgba(0, 255, 136, 0.08);
+            border: 1px solid rgba(0, 255, 136, 0.25);
+            color: rgba(0, 255, 136, 0.8);
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 500;
+            font-family: 'Consolas', 'Monaco', monospace;
+            transition: all 0.3s;
+            margin-right: 10px;
+        }
+        
+            border-color: rgba(0, 255, 136, 0.4);
+        .vlog-sync-toggle-btn:hover {
+            background: rgba(0, 255, 136, 0.4);
+            transform: scale(1.05);
+        }
+
+        /* ⭐ 同步面板 - 固定宽度，左侧显示 */
+        #vlog-sync-panel {
+            position: fixed;
+            top: 80px;
+            left: 50%;                        /* ⭐ 改成居中 */
+            transform: translateX(-50%);      /* ⭐ 左移50%实现居中 */
+            width: 600px;
+            height: calc(100vh - 160px);
+            
+            /* 初始隐藏 */
+            display: none;
+            opacity: 0;
+            
+            /* 透明背景，和瀑布雨融合 */
+            background: transparent;
+            border: none;
+            
+            z-index: 15;
+            transition: opacity 0.3s ease;
+        }
+
+
+
+        #vlog-sync-canvas {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            
+            /* ⭐ 暗化滤镜 - 亮度调到70% */
+            filter: brightness(1.0) contrast(1.1) saturate(0.7) sepia(0.2) hue-rotate(80deg);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Echo8 UI Overlay（所有 Toast、提示、光效都挂在这里） -->
+    <div id="toast-layer"></div>
+    
+    <!-- ⭐ 暖场舞台（你原来的 warmup-stage DOM） -->
+    <div id="warmup-stage">
+        <canvas id="matrix-rain"></canvas>
+        
+        <div class="corner corner-tl"></div>
+        <div class="corner corner-tr"></div>
+        <div class="corner corner-bl"></div>
+        <div class="corner corner-br"></div>
+        
+        <div class="stage">
+            <div class="data-ticker">
+                <div class="data-item">
+                    <span class="data-icon">⛅</span>
+                    <span id="weather-city">上海市</span>
+                    <span class="data-value" id="weather-temp">7°C</span>
+                    <span id="weather-desc">--</span>
+                </div>
+                <div class="data-item">
+                    <span class="data-icon">📈</span>
+                    <span>纳斯达克</span>
+                    <span class="data-value" id="nasdaq-price">23,501.24</span>
+                    <span class="data-change up" id="nasdaq-change">+0.28%</span>
+                </div>
+                <div class="data-item">
+                    <span class="data-icon">🌍</span>
+                    <span class="data-value" id="news-1">OpenAI签署100亿美元AI算力大单</span>
+                </div>
+                <div class="data-item">
+                    <span class="data-icon">🚀</span>
+                    <span class="data-value" id="news-2">中国成功发射卫星互联网低轨卫星</span>
+                </div>
+                <div class="data-item">
+                    <span class="data-icon">🕐</span>
+                    <span class="data-value" id="live-time">2026-01-17 19:30:00</span>
+                </div>
+            </div>
+            
+            <div class="model-logos">
+                <div class="model-avatar" data-model="Claude">
+                    <img src="../assets/models/claude.png" class="model-logo">
+                </div>
+                <div class="model-avatar" data-model="Gemini">
+                    <img src="../assets/models/gemini.png" class="model-logo">
+                </div>
+                <div class="model-avatar" data-model="Chatgpt">
+                    <img src="../assets/models/chatgpt.png" class="model-logo">
+                </div>
+                <div class="model-avatar" data-model="Copilot">
+                    <img src="../assets/models/copilot.png" class="model-logo">
+                </div>
+                <div class="model-avatar" data-model="Deepseek">
+                    <img src="../assets/models/deepseek.png" class="model-logo">
+                </div>
+                <div class="model-avatar" data-model="Tongyi">
+                    <img src="../assets/models/tongyi.png" class="model-logo">
+                </div>
+                <div class="model-avatar" data-model="Kimi">
+                    <img src="../assets/models/kimi.png" class="model-logo">
+                </div>
+                <div class="model-avatar" data-model="Doubao">
+                    <img src="../assets/models/doubao.png" class="model-logo">
+                </div>
+            </div>
+
+            
+            <div class="quote-container">
+                <div class="quote-main">Clawdbot - 当红炸子鸡</div>
+                <div class="quote-sub">成了我们项目秘书，有点惶恐、兴奋...</div>
+            </div>
+            
+            <div class="ai-avatar">
+                <div class="avatar-circle">
+                    <img src="uncle_ping.png" alt="平叔头像" class="avatar-img">
+                </div>
+                <div class="avatar-name">平叔</div>
+                <div class="avatar-status">
+                    <span class="status-dot"></span>
+                    <span>正在连接深海信号... </span>
+                </div>
+            </div>
+            
+            <div id="big-countdown" style="position: fixed; bottom: 50px; left: 50%; transform: translateX(-50%); width: 40px; height: 40px; border-radius: 50%; background: rgba(0,255,136,0.2); border: 3px solid #00ff88; display: flex; align-items: center; justify-content: center; font-size: 48px; font-weight: bold; color: #00ff88; text-shadow: 0 0 20px rgba(0,255,136,0.8); z-index: 200; opacity: 0; animation: fadeIn 0.5s ease 6s forwards;">
+                16
+            </div>
+            
+            <div class="timestamp">虫洞8°视频博客模块 // 在线广播</div>
+        </div>
+    </div>
+
+    <!-- ⭐ 正式直播间（你原来的 vlog-stage DOM） -->
+    <div id="vlog-stage">
+        <!-- 代码雨（更暗） -->
+        <canvas id="vlog-matrix-rain"></canvas>
+
+        <!-- 扫描线 -->
+
+        <!-- 顶部状态栏 -->
+        <div class="vlog-header">
+            <div class="vlog-avatar-section">
+                <div class="vlog-avatar-circle">
+                    <img src="uncle_ping.png" alt="平叔" class="vlog-avatar-img">
+                </div>
+                <div class="vlog-name">平叔</div>
+            </div>
+            
+            
+            <!-- 🆕 同步切换按钮 -->
+            <button id="vlog-sync-toggle" class="vlog-sync-toggle-btn">📺 同步</button>
+            <div class="vlog-live-badge">
+                <span class="live-dot"></span>
+                <span>LIVE</span>
+            </div>
+        </div>
+
+        <!-- 字幕区域 -->
+        <div id="vlog-content-wrapper">
+            <div id="vlog-content"></div>
+        </div>
+
+        <!-- 🆕 主窗口同步面板（右侧）-->
+        <div id="vlog-sync-panel">
+            <canvas id="vlog-sync-canvas"></canvas>
+        </div>
+
+        <!-- 底部输入栏 -->
+        <div class="vlog-input-bar">
+            <input 
+                type="text" 
+                class="vlog-input" 
+                placeholder="输入 @ 邀请AI连麦..."
+                id="vlog-input"
+            >
+            <button class="vlog-exit-btn" id="vlog-exit-btn" >X 退出</button>
+        </div>
+    </div>
+    <!---<script src="WarmupNameReveal.js"></script>--->
+<script src="../matrix-rain.js"></script>
+<script src="WarmupToast.js"></script>
+<script src="../vlog-mode.js"></script>
+<script src="vlog-warmup.js"></script>
+<script src="vlog-sync.js"></script>
+
+
+</body>
+</html>

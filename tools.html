@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智能工具 - 虫洞8°</title>
+    <link rel="stylesheet" href="styles/matrix.css">
+    <style>
+        /* 工具页面特定样式 */
+        .tools-hero {
+            text-align: center;
+            padding: 80px 20px 40px;
+        }
+
+        .tools-hero-title {
+            font-size: 42px;
+            color: #fff;
+            margin-bottom: 20px;
+            text-shadow: 0 0 30px rgba(0, 255, 136, 0.8);
+        }
+
+        .tools-hero-subtitle {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .tools-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .tool-category {
+            margin-bottom: 60px;
+        }
+
+        .category-title {
+            font-size: 28px;
+            color: #fff;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(0, 255, 136, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .category-icon {
+            font-size: 32px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 代码雨背景 -->
+    <canvas id="matrix-rain"></canvas>
+
+    <!-- 角落装饰 -->
+    <div class="corner corner-tl"></div>
+    <div class="corner corner-tr"></div>
+    <div class="corner corner-bl"></div>
+    <div class="corner corner-br"></div>
+
+    <div class="container">
+        <!-- 导航栏 -->
+        <nav class="navbar">
+            <a href="index.html" class="logo">
+                <span class="logo-emoji">🌀</span>
+                <span>虫洞8°</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">首页</a>
+                <a href="product.html" class="nav-link">产品</a>
+                <a href="tools.html" class="nav-link active">智能工具</a>
+                <a href="download.html" class="nav-link">下载</a>
+                <a href="docs.html" class="nav-link">文档</a>
+                <a href="about.html" class="nav-link">关于</a>
+            </div>
+        </nav>
+
+        <!-- 工具页面标题区域 -->
+        <section class="tools-hero">
+            <h1 class="tools-hero-title">🛠️ 智能工具箱</h1>
+            <p class="tools-hero-subtitle">
+                强大的AI工具集，助您提升开发效率、智能分析代码、自动化文档撰写
+            </p>
+        </section>
+
+        <!-- 工具展示区域 -->
+        <div class="tools-container">
+            <!-- 数据处理工具 -->
+            <div class="tool-category">
+                <h2 class="category-title">
+                    <span>🧠</span>
+                    数据处理工具
+                </h2>
+                <div class="tools-grid" id="data-tools">
+                    <!-- 工具卡片将由JavaScript动态生成 -->
+                </div>
+            </div>
+
+            <!-- 代码分析工具 -->
+            <div class="tool-category">
+                <h2 class="category-title">
+                    <span>🔍</span>
+                    代码分析工具
+                </h2>
+                <div class="tools-grid" id="code-tools">
+                    <!-- 工具卡片将由JavaScript动态生成 -->
+                </div>
+            </div>
+
+            <!-- 文档工具 -->
+            <div class="tool-category">
+                <h2 class="category-title">
+                    <span>📝</span>
+                    智能文档工具
+                </h2>
+                <div class="tools-grid" id="docs-tools">
+                    <!-- 工具卡片将由JavaScript动态生成 -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 页脚 -->
+        <footer class="footer">
+            <div class="footer-links">
+                <a href="index.html" class="footer-link">首页</a>
+                <a href="product.html" class="footer-link">产品</a>
+                <a href="download.html" class="footer-link">下载</a>
+                <a href="docs.html" class="footer-link">文档</a>
+            </div>
+            <div class="copyright">
+                © 2026 虫洞8° · 数据主权 · 本地优先
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // 工具数据
+        const tools = [
+            // 数据处理工具
+            {
+                id: 'chat-memory-recovery',
+                category: 'data-tools',
+                title: '聊天记忆恢复',
+                icon: '🧠',
+                status: 'ready',
+                statusText: '就绪',
+                description: 'ClaudeBot聊天记录转换器，清洗实时聊天记录，提取核心对话内容，去除技术噪音，快速恢复记忆。',
+                features: [
+                    '支持JSONL格式实时聊天记录',
+                    '智能清洗技术噪音',
+                    '保留核心对话内容',
+                    '快速记忆恢复',
+                    '可视化操作界面'
+                ],
+                pageUrl: '/Users/admin/.openclaw/workspace/tool_memory_recovery_clean.html'
+            },
+            {
+                id: 'smart-code-compare',
+                category: 'code-tools',
+                title: '智能代码比较',
+                icon: '🔍',
+                status: 'ready',
+                statusText: '就绪',
+                description: 'AI智能代码比较工具，支持代码差异分析、智能提示管理和Chrome扩展集成。',
+                features: [
+                    '代码差异可视化比较',
+                    'AI智能提示管理',
+                    'Chrome扩展支持',
+                    '多文件对比分析',
+                    '实时同步更新'
+                ],
+                pageUrl: '/Users/admin/.openclaw/workspace/tool_code_compare.html'
+            },
+            {
+                id: 'smart-docs-writer',
+                category: 'docs-tools',
+                title: '智能文档撰写',
+                icon: '📝',
+                status: 'ready',
+                statusText: '就绪',
+                description: 'AI智能文档撰写工具，自动分析项目结构，生成详细的项目文档和技术说明。',
+                features: [
+                    '支持DeepSeek和智谱GLM',
+                    '自动项目结构分析',
+                    '智能代码文档撰写',
+                    '多格式输出支持',
+                    'API密钥配置'
+                ],
+                pageUrl: '/Users/admin/.openclaw/workspace/tool_docs_writer.html'
+            },
+            {
+                id: 'database-backup-tool',
+                category: 'data-tools',
+                title: '数据库智能备份',
+                icon: '💾',
+                status: 'dev',
+                statusText: '开发中',
+                description: '智能数据库备份工具，支持文件系统和Chrome IndexedDB备份，自动备份策略和门户集成。',
+                features: [
+                    '支持文件系统数据库',
+                    '支持Chrome IndexedDB',
+                    '智能备份策略',
+                    '增量备份支持',
+                    '备份状态监控'
+                ],
+                pageUrl: '#'
+            }
+        ];
+
+        // 渲染工具卡片
+        function renderTools() {
+            tools.forEach(tool => {
+                const container = document.getElementById(tool.category);
+                if (!container) return;
+
+                const card = document.createElement('div');
+                card.className = 'tool-card';
+                card.innerHTML = `
+                    <div class="tool-header">
+                        <div class="tool-icon">${tool.icon}</div>
+                        <div class="tool-title">${tool.title}</div>
+                    </div>
+                    <div class="tool-description">${tool.description}</div>
+                    <div class="tool-features">
+                        <ul>
+                            ${tool.features.map(feature => `<li>${feature}</li>`).join('')}
+                        </ul>
+                    </div>
+                    <div class="tool-actions">
+                        <a href="${tool.pageUrl}" class="btn btn-primary" ${tool.pageUrl === '#' ? 'onclick="return false;" style="opacity:0.5;cursor:not-allowed;"' : ''}>
+                            <span>🚀</span> 启动工具
+                        </a>
+                    </div>
+                    <div style="margin-top: 15px;">
+                        <span class="status-indicator status-${tool.status}">${tool.statusText}</span>
+                    </div>
+                `;
+
+                // 点击卡片跳转
+                if (tool.pageUrl !== '#') {
+                    card.addEventListener('click', (e) => {
+                        if (!e.target.closest('.btn')) {
+                            window.location.href = tool.pageUrl;
+                        }
+                    });
+                }
+
+                container.appendChild(card);
+            });
+        }
+
+        // 页面加载完成后渲染
+        document.addEventListener('DOMContentLoaded', () => {
+            renderTools();
+
+            // 添加滚动动画
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            document.querySelectorAll('.tool-card').forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(card);
+            });
+        });
+    </script>
+
+    <!-- 代码雨背景脚本 -->
+    <script src="js/matrix-rain.js"></script>
+</body>
+</html>

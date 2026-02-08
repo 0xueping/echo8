@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>虫洞8° - 多AI决策顾问团</title>
+    <link rel="stylesheet" href="styles/matrix.css">
+    <style>
+        /* 主页特定样式 */
+        .hero {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            padding: 100px 20px;
+        }
+        
+        .hero-content {
+            max-width: 900px;
+            position: relative;
+            z-index: 20;
+        }
+        
+        .hero-title {
+            font-size: 64px;
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 30px;
+            text-shadow: 0 0 40px rgba(0, 255, 136, 0.9);
+            animation: glowIn 1.5s ease forwards;
+        }
+        
+        .hero-subtitle {
+            font-size: 24px;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 50px;
+            line-height: 1.6;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .hero-cta {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .ai-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin: 60px 0;
+        }
+        
+        .ai-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+        }
+        
+        .ai-card:hover {
+            border-color: rgba(0, 255, 136, 0.4);
+            box-shadow: 0 0 40px rgba(0, 255, 136, 0.3);
+            transform: translateY(-10px);
+        }
+        
+        .ai-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+            display: block;
+        }
+        
+        .ai-name {
+            font-size: 22px;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+        
+        .ai-desc {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        .philosophy-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            margin: 60px 0;
+        }
+        
+        .philosophy-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(0, 255, 136, 0.15);
+            border-radius: 12px;
+            padding: 30px;
+            transition: all 0.3s;
+        }
+        
+        .philosophy-item:hover {
+            border-color: rgba(0, 255, 136, 0.3);
+            background: rgba(0, 255, 136, 0.05);
+        }
+        
+        .philosophy-title {
+            font-size: 20px;
+            color: #00ff88;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .philosophy-title::before {
+            content: '▸';
+            color: #00ff88;
+        }
+        
+        .philosophy-text {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+        }
+        
+        .data-flow-section {
+            margin: 80px 0;
+            padding: 60px 0;
+            border-top: 1px solid rgba(0, 255, 136, 0.2);
+            border-bottom: 1px solid rgba(0, 255, 136, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .data-flow-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.1), transparent);
+            animation: dataFlow 6s linear infinite;
+        }
+        
+        @keyframes dataFlow {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .stat-card {
+            text-align: center;
+            padding: 30px;
+        }
+        
+        .stat-number {
+            font-size: 48px;
+            font-weight: bold;
+            color: #00ff88;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+        }
+        
+        .stat-label {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 16px;
+        }
+        
+        @media (max-width: 1024px) {
+            .ai-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .philosophy-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 42px;
+            }
+            
+            .hero-subtitle {
+                font-size: 20px;
+            }
+            
+            .ai-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 代码雨背景 -->
+    <canvas id="matrix-rain"></canvas>
+    <div class="scanline"></div>
+    
+    <!-- 角落装饰 -->
+    <div class="corner corner-tl"></div>
+    <div class="corner corner-tr"></div>
+    <div class="corner corner-bl"></div>
+    <div class="corner corner-br"></div>
+    
+    <div class="container">
+        <!-- 导航栏 -->
+        <nav class="navbar">
+            <a href="index.html" class="logo">
+                <span class="logo-emoji">🌀</span>
+                <span>虫洞8°</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link active">首页</a>
+                <a href="product.html" class="nav-link">产品</a>
+                <a href="tools.html" class="nav-link">智能工具</a>
+                <a href="download.html" class="nav-link">下载</a>
+                <a href="docs.html" class="nav-link">文档</a>
+                <a href="about.html" class="nav-link">关于</a>
+            </div>
+        </nav>
+
+        <!-- 英雄区域 -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1 class="hero-title">虫洞8° - 多AI决策顾问团</h1>
+                <p class="hero-subtitle">
+                    8个AI专家协同工作，为你的每一个重要决策提供深度分析和建议。<br>
+                    数据主权 · 本地优先 · 隐私保护
+                </p>
+                <div class="hero-cta">
+                    <a href="download.html" class="btn btn-primary">
+                        <span>🚀</span>
+                        立即下载
+                    </a>
+                    <a href="product.html" class="btn btn-secondary">
+                        <span>🔍</span>
+                        了解详情
+                    </a>
+                    <a href="tools.html" class="btn btn-ghost">
+                        <span>⚡</span>
+                        智能工具
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8个AI专家展示 -->
+        <section class="features">
+            <h2 class="section-title">🤖 8个AI专家顾问团</h2>
+            <div class="ai-grid">
+                <div class="ai-card">
+                    <span class="ai-icon">🧠</span>
+                    <h3 class="ai-name">桃谷六仙</h3>
+                    <p class="ai-desc">六位性格迥异的AI专家，从不同角度分析问题，提供多维度的思考</p>
+                </div>
+                <div class="ai-card">
+                    <span class="ai-icon">🔬</span>
+                    <h3 class="ai-name">X证大师</h3>
+                    <p class="ai-desc">专业的技术分析和数据验证专家，确保每一个结论都有数据支撑</p>
+                </div>
+                <div class="ai-card">
+                    <span class="ai-icon">🎯</span>
+                    <h3 class="ai-name">风清扬</h3>
+                    <p class="ai-desc">战略层面的宏观思考和长远规划，帮你看到更远的未来</p>
+                </div>
+                <div class="ai-card">
+                    <span class="ai-icon">💾</span>
+                    <h3 class="ai-name">数据管家</h3>
+                    <p class="ai-desc">本地数据管理和分析专家，确保你的数据安全有序</p>
+                </div>
+                <div class="ai-card">
+                    <span class="ai-icon">⚡</span>
+                    <h3 class="ai-name">快速响应</h3>
+                    <p class="ai-desc">实时分析和快速决策专家，应对紧急情况和时间敏感问题</p>
+                </div>
+                <div class="ai-card">
+                    <span class="ai-icon">🎨</span>
+                    <h3 class="ai-name">创意引擎</h3>
+                    <p class="ai-desc">创新思维和创意生成专家，打破常规寻找突破点</p>
+                </div>
+                <div class="ai-card">
+                    <span class="ai-icon">📊</span>
+                    <h3 class="ai-name">风险控制</h3>
+                    <p class="ai-desc">风险评估和规避专家，提前识别潜在问题和风险</p>
+                </div>
+                <div class="ai-card">
+                    <span class="ai-icon">🤝</span>
+                    <h3 class="ai-name">共识构建</h3>
+                    <p class="ai-desc">协调不同意见，寻找共识和最佳解决方案的专家</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 数据流展示 -->
+        <section class="data-flow-section">
+            <h2 class="section-title">📡 深海信号数据流</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">8</div>
+                    <div class="stat-label">并行AI专家</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">本地数据存储</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">0</div>
+                    <div class="stat-label">云端依赖</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">∞</div>
+                    <div class="stat-label">数据主权</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 产品哲学 -->
+        <section class="philosophy">
+            <h2 class="section-title">🎯 产品哲学</h2>
+            <div class="philosophy-grid">
+                <div class="philosophy-item">
+                    <h3 class="philosophy-title">严肃的决策工具</h3>
+                    <p class="philosophy-text">不是娱乐化的聊天机器人，而是真正的决策支持系统。每一个建议都经过8个AI专家的深度分析和验证。</p>
+                </div>
+                <div class="philosophy-item">
+                    <h3 class="philosophy-title">多AI协同作战</h3>
+                    <p class="philosophy-text">8个AI专家组成的顾问团，各自发挥专长，相互验证，提供多维度的专业建议和深度分析。</p>
+                </div>
+                <div class="philosophy-item">
+                    <h3 class="philosophy-title">长期数字资产积累</h3>
+                    <p class="philosophy-text">每一次对话、每一个决策都成为你宝贵的数字资产，在本地安全存储，持续积累价值。</p>
+                </div>
+                <div class="philosophy-item">
+                    <h3 class="philosophy-title">本地优先架构</h3>
+                    <p class="philosophy-text">数据完全掌控在你手中，无需依赖云端服务。真正的数据主权，真正的隐私保护。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 行动号召 -->
+        <section class="cta-section" style="text-align: center; margin: 80px 0; padding: 60px 0;">
+            <h2 style="font-size: 36px; color: #fff; margin-bottom: 30px;">🚀 开始你的多AI决策之旅</h2>
+            <p style="color: rgba(255, 255, 255, 0.8); font-size: 18px; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto;">
+                下载虫洞8° Chrome扩展，体验8个AI专家同时为你工作的强大能力
+            </p>
+            <div class="hero-cta">
+                <a href="download.html" class="btn btn-primary" style="padding: 16px 40px; font-size: 18px;">
+                    <span>⚡</span>
+                    立即下载体验
+                </a>
+                <a href="tools.html" class="btn btn-secondary" style="padding: 16px 40px; font-size: 18px;">
+                    <span>🔧</span>
+                    查看智能工具
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-links">
+                <a href="product.html" class="footer-link">产品</a>
+                <a href="tools.html" class="footer-link">智能工具</a>
+                <a href="download.html" class="footer-link">下载</a>
+                <a href="docs.html" class="footer-link">文档</a>
+                <a href="about.html" class="footer-link">关于</a>
+                <a href="privacy.html" class="footer-link">隐私政策</a>
+            </div>
+            <p class="copyright">
+                &copy; 2026 虫洞8° · 数据主权 · 本地优先 · 隐私至上<br>
+                <span style="color: rgba(0, 255, 136, 0.5); font-size: 12px; margin-top: 10px; display: block;">
+                    🌀 深海信号 · 并行计算 · 量子纠缠 · 神经网络
+                </span>
+            </p>
+        </div>
+    </footer>
+
+    <!-- 脚本 -->
+    <script src="../matrix-rain.js"></script>
+    <script>
+        // 初始化代码雨
+        document.addEventListener('DOMContentLoaded', function() {
+            MatrixRain('matrix-rain', 0.05);
+            
+            // 导航栏激活状态
+            const currentPage = window.location.pathname.split('/').pop();
+            document.querySelectorAll('.nav-link').forEach(link => {
+                if (link.getAttribute('href') === currentPage) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+            
+            // 动画效果
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+            
+            // 观察所有卡片
+            document.querySelectorAll('.ai-card, .philosophy-item, .stat-card').forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(card);
+            });
+        });
+    </script>
+
+    <!-- 代码雨背景脚本 -->
+    <script src="js/matrix-rain.js"></script>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <link rel="stylesheet" href="styles/matrix.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>记忆恢复工具</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: -apple-system, sans-serif; 
+            background: #f0f2f5; 
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .top-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 15px;
+            background: white;
+            border-bottom: 1px solid #e0e0e0;
+            flex-shrink: 0;
+        }
+        
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 6px 12px;
+            background: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.85rem;
+        }
+        .back-btn:hover { background: #2980b9; }
+        
+        .tool-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .tool-container {
+            flex: 1;
+            padding: 10px;
+            background: #f0f2f5;
+        }
+        
+        .tool-frame {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        /* 隐藏iframe内部工具的标题 */
+        .tool-frame + script {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 代码雨背景 -->
+    <canvas id="matrix-rain"></canvas>
+    <div class="scanline"></div>
+
+    <!-- 角落装饰 -->
+    <div class="corner corner-tl"></div>
+    <div class="corner corner-tr"></div>
+    <div class="corner corner-bl"></div>
+    <div class="corner corner-br"></div>
+    
+    <div class="container">
+    <div class="top-bar">
+        <a href="ai_tools_portal.html" class="back-btn">← 返回</a>
+        <div class="tool-title">🧠 记忆恢复工具</div>
+        <div style="width: 60px;"></div> <!-- 占位，保持对称 -->
+    </div>
+    
+    <div class="tool-container">
+        <iframe 
+            src="ai-tools/chat-mem-frag-recov/simple-converter.html" 
+            class="tool-frame"
+            title="记忆恢复工具"
+            sandbox="allow-scripts allow-same-origin allow-forms"
+        ></iframe>
+    </div>
+    
+    <script>
+        console.log('记忆恢复工具 - 最大化版本加载');
+        
+        // 设置iframe高度为动态计算
+        const iframe = document.querySelector('.tool-frame');
+        const topBar = document.querySelector('.top-bar');
+        
+        function resizeIframe() {
+            const windowHeight = window.innerHeight;
+            const topBarHeight = topBar.offsetHeight;
+            const containerPadding = 20; // 上下各10px
+            const iframeHeight = windowHeight - topBarHeight - containerPadding;
+            
+            iframe.style.height = iframeHeight + 'px';
+            console.log('iframe高度设置为:', iframeHeight, 'px');
+        }
+        
+        // 初始设置
+        resizeIframe();
+        
+        // 窗口大小变化时重新调整
+        window.addEventListener('resize', resizeIframe);
+        
+        // iframe加载完成
+        iframe.onload = () => {
+            console.log('工具加载完成');
+            // 可以在这里通知iframe内部工具调整布局
+        };
+        
+        iframe.onerror = () => console.error('工具加载失败');
+    </script>
+    </div>
+
+    <!-- 代码雨背景脚本 -->
+    <script src="js/matrix-rain.js"></script>
+</body>
+</html>

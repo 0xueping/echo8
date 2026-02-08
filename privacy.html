@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>隐私政策 - 虫洞8°</title>
+    <meta name="description" content="虫洞8°的隐私政策:100%本地存储,无需注册,数据完全掌控在你手中。">
+    <link rel="stylesheet" href="styles/matrix.css">
+    <style>
+        .page-header {
+            text-align: center;
+            padding: 100px 20px 60px;
+            border-bottom: 1px solid rgba(0, 255, 136, 0.2);
+            margin-bottom: 60px;
+        }
+
+        .page-badge {
+            display: inline-block;
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            color: #00ff88;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .page-title {
+            font-size: 52px;
+            color: #fff;
+            margin-bottom: 20px;
+            text-shadow: 0 0 40px rgba(0, 255, 136, 0.8);
+        }
+
+        .page-subtitle {
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        .privacy-section {
+            margin-bottom: 80px;
+        }
+
+        .section-title {
+            font-size: 32px;
+            color: #fff;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(0, 255, 136, 0.3);
+        }
+
+        .principle-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin: 50px 0;
+        }
+
+        .principle-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(0, 255, 136, 0.15);
+            border-radius: 16px;
+            padding: 35px;
+            transition: all 0.3s;
+        }
+
+        .principle-card:hover {
+            border-color: rgba(0, 255, 136, 0.4);
+            background: rgba(0, 255, 136, 0.05);
+            transform: translateY(-5px);
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.2);
+        }
+
+        .principle-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .principle-title {
+            font-size: 22px;
+            color: #00ff88;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .principle-desc {
+            color: rgba(255, 255, 255, 0.75);
+            line-height: 1.7;
+            font-size: 15px;
+        }
+
+        .data-flow {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            border-radius: 20px;
+            padding: 50px;
+            margin: 60px 0;
+        }
+
+        .flow-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            padding: 25px;
+            margin-bottom: 20px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 12px;
+        }
+
+        .flow-step:last-child {
+            margin-bottom: 0;
+        }
+
+        .step-icon {
+            font-size: 32px;
+            flex-shrink: 0;
+        }
+
+        .step-content h3 {
+            color: #00ff88;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .step-content p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .commitment-box {
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(0, 255, 136, 0.05));
+            border: 2px solid rgba(0, 255, 136, 0.3);
+            border-radius: 16px;
+            padding: 40px;
+            margin: 50px 0;
+        }
+
+        .commitment-title {
+            font-size: 24px;
+            color: #00ff88;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .commitment-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .commitment-list li {
+            color: rgba(255, 255, 255, 0.85);
+            padding: 15px 0;
+            padding-left: 40px;
+            position: relative;
+            font-size: 16px;
+            line-height: 1.6;
+            border-bottom: 1px solid rgba(0, 255, 136, 0.1);
+        }
+
+        .commitment-list li:last-child {
+            border-bottom: none;
+        }
+
+        .commitment-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #00ff88;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        @media (max-width: 1024px) {
+            .principle-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 38px;
+            }
+
+            .data-flow {
+                padding: 30px 20px;
+            }
+
+            .flow-step {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="matrix-rain"></canvas>
+
+    <div class="corner corner-tl"></div>
+    <div class="corner corner-tr"></div>
+    <div class="corner corner-bl"></div>
+    <div class="corner corner-br"></div>
+
+    <div class="container">
+        <nav class="navbar">
+            <a href="index.html" class="logo">
+                <span class="logo-emoji">🌀</span>
+                <span>虫洞8°</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">首页</a>
+                <a href="philosophy.html" class="nav-link">设计哲学</a>
+                <a href="how-it-works.html" class="nav-link">工作原理</a>
+                <a href="use-cases.html" class="nav-link">使用场景</a>
+                <a href="download.html" class="nav-link">下载</a>
+                <a href="docs.html" class="nav-link">文档</a>
+            </div>
+        </nav>
+
+        <section class="page-header">
+            <div class="page-badge">Privacy First</div>
+            <h1 class="page-title">隐私与数据主权</h1>
+            <p class="page-subtitle">
+                你的数据属于你,存储在你的设备上,完全掌控在你的手中
+            </p>
+        </section>
+
+        <!-- 核心原则 -->
+        <section class="privacy-section">
+            <h2 class="section-title">🔐 核心隐私原则</h2>
+
+            <div class="principle-grid">
+                <div class="principle-card">
+                    <div class="principle-icon">💾</div>
+                    <h3 class="principle-title">100%本地存储</h3>
+                    <p class="principle-desc">
+                        所有对话历史、Topic Card、决策标注都存储在你的浏览器IndexedDB中,不经过任何云端服务器。
+                    </p>
+                </div>
+
+                <div class="principle-card">
+                    <div class="principle-icon">🚫</div>
+                    <h3 class="principle-title">无需注册登录</h3>
+                    <p class="principle-desc">
+                        不需要账号,不收集邮箱、手机号等个人信息。安装即用,完全匿名,真正的零跟踪。
+                    </p>
+                </div>
+
+                <div class="principle-card">
+                    <div class="principle-icon">📡</div>
+                    <h3 class="principle-title">无云端依赖</h3>
+                    <p class="principle-desc">
+                        核心功能完全离线运行。你的问题直接发送到各个AI服务的API,不经过我们的服务器。
+                    </p>
+                </div>
+
+                <div class="principle-card">
+                    <div class="principle-icon">📦</div>
+                    <h3 class="principle-title">可导出备份</h3>
+                    <p class="principle-desc">
+                        支持一键导出所有数据为JSON格式,随时备份到本地,完全掌控你的数字资产。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 数据流 -->
+        <section class="data-flow">
+            <h2 style="color: #fff; font-size: 32px; margin-bottom: 40px; text-align: center;">📊 数据流向</h2>
+
+            <div class="flow-step">
+                <div class="step-icon">✍️</div>
+                <div class="step-content">
+                    <h3>你的输入</h3>
+                    <p>你在虫洞8°中输入问题或决策需求</p>
+                </div>
+            </div>
+
+            <div class="flow-step">
+                <div class="step-icon">🚀</div>
+                <div class="step-content">
+                    <h3>直接发送</h3>
+                    <p>问题直接从你的浏览器发送到各个AI服务的API(OpenAI、Anthropic等)</p>
+                </div>
+            </div>
+
+            <div class="flow-step">
+                <div class="step-icon">🤖</div>
+                <div class="step-content">
+                    <h3>AI处理</h3>
+                    <p>各个AI服务独立处理你的请求并返回回复</p>
+                </div>
+            </div>
+
+            <div class="flow-step">
+                <div class="step-icon">💾</div>
+                <div class="step-content">
+                    <h3>本地存储</h3>
+                    <p>回复内容直接保存到你浏览器的IndexedDB,成为你的Topic Card</p>
+                </div>
+            </div>
+
+            <div class="flow-step">
+                <div class="step-icon">🔐</div>
+                <div class="step-content">
+                    <h3>完全掌控</h3>
+                    <p>只有你能访问这些数据,可以随时查看、编辑、导出或删除</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 承诺 -->
+        <section class="privacy-section">
+            <h2 class="section-title">✅ 我们的承诺</h2>
+
+            <div class="commitment-box">
+                <div class="commitment-title">虫洞8°数据主权承诺</div>
+                <ul class="commitment-list">
+                    <li>你的数据属于你,我们永不访问、收集或出售你的数据</li>
+                    <li>所有对话历史存储在你的本地设备,不上传到任何服务器</li>
+                    <li>不需要账号注册,不收集任何个人信息</li>
+                    <li>不使用任何跟踪代码或分析工具</li>
+                    <li>代码开源,可审计,可验证</li>
+                    <li>支持数据导出,随时备份</li>
+                    <li>即使虫洞8°停止服务,你的数据依然在本地可用</li>
+                    <li>你的API密钥存储在本地,我们无法访问</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 与其他产品对比 -->
+        <section class="privacy-section">
+            <h2 class="section-title">⚖️ 与其他产品对比</h2>
+
+            <div style="background: rgba(0, 0, 0, 0.4); border-radius: 16px; padding: 40px; overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr style="border-bottom: 2px solid rgba(0, 255, 136, 0.3);">
+                            <th style="padding: 20px; text-align: left; color: #00ff88; font-size: 16px;">对比项</th>
+                            <th style="padding: 20px; text-align: left; color: rgba(255, 100, 100, 0.8); font-size: 16px;">传统AI产品</th>
+                            <th style="padding: 20px; text-align: left; color: #00ff88; font-size: 16px;">虫洞8°</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom: 1px solid rgba(0, 255, 136, 0.1);">
+                            <td style="padding: 18px; color: #fff;"><strong>数据存储</strong></td>
+                            <td style="padding: 18px; color: rgba(255, 255, 255, 0.7);">云端服务器</td>
+                            <td style="padding: 18px; color: #00ff88; font-weight: 600;">本地IndexedDB</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(0, 255, 136, 0.1);">
+                            <td style="padding: 18px; color: #fff;"><strong>账号注册</strong></td>
+                            <td style="padding: 18px; color: rgba(255, 255, 255, 0.7);">必须注册</td>
+                            <td style="padding: 18px; color: #00ff88; font-weight: 600;">无需注册</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(0, 255, 136, 0.1);">
+                            <td style="padding: 18px; color: #fff;"><strong>数据访问</strong></td>
+                            <td style="padding: 18px; color: rgba(255, 255, 255, 0.7);">平台可访问</td>
+                            <td style="padding: 18px; color: #00ff88; font-weight: 600;">仅用户可访问</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(0, 255, 136, 0.1);">
+                            <td style="padding: 18px; color: #fff;"><strong>数据导出</strong></td>
+                            <td style="padding: 18px; color: rgba(255, 255, 255, 0.7);">受限或不可导出</td>
+                            <td style="padding: 18px; color: #00ff88; font-weight: 600;">一键导出全部</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(0, 255, 136, 0.1);">
+                            <td style="padding: 18px; color: #fff;"><strong>离线访问</strong></td>
+                            <td style="padding: 18px; color: rgba(255, 255, 255, 0.7);">需要联网</td>
+                            <td style="padding: 18px; color: #00ff88; font-weight: 600;">历史记录离线可访问</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 18px; color: #fff;"><strong>数据所有权</strong></td>
+                            <td style="padding: 18px; color: rgba(255, 255, 255, 0.7);">平台拥有</td>
+                            <td style="padding: 18px; color: #00ff88; font-weight: 600;">用户完全拥有</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- API密钥安全 -->
+        <section class="privacy-section">
+            <h2 class="section-title">🔑 API密钥安全</h2>
+
+            <div style="background: rgba(0, 255, 136, 0.05); border: 1px solid rgba(0, 255, 136, 0.2); border-radius: 16px; padding: 40px; margin: 40px 0;">
+                <p style="color: rgba(255, 255, 255, 0.85); font-size: 16px; line-height: 1.8; margin-bottom: 20px;">
+                    使用虫洞8°时,你需要配置自己的AI服务API密钥(如OpenAI API Key)。这些密钥的安全处理方式:
+                </p>
+                <ul style="color: rgba(255, 255, 255, 0.8); font-size: 15px; line-height: 1.8; padding-left: 20px;">
+                    <li>密钥仅存储在你浏览器的本地存储中(LocalStorage)</li>
+                    <li>密钥从不发送到虫洞8°的服务器</li>
+                    <li>密钥直接从你的浏览器发送到对应的AI服务</li>
+                    <li>我们无法访问、查看或存储你的API密钥</li>
+                    <li>你可以随时在设置中删除或更换密钥</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 常见问题 -->
+        <section class="privacy-section">
+            <h2 class="section-title">❓ 隐私相关常见问题</h2>
+
+            <div style="margin-top: 40px;">
+                <details style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(0, 255, 136, 0.15); border-radius: 12px; margin-bottom: 20px; overflow: hidden;">
+                    <summary style="padding: 25px; cursor: pointer; color: #fff; font-size: 18px; font-weight: 600; list-style: none; display: flex; align-items: center; justify-content: space-between;">
+                        虫洞8°能看到我的对话内容吗?
+                        <span style="color: #00ff88; font-size: 24px;">+</span>
+                    </summary>
+                    <div style="padding: 0 25px 25px; color: rgba(255, 255, 255, 0.8); line-height: 1.7;">
+                        完全不能。你的所有对话内容都存储在本地IndexedDB中,我们无法访问。我们的服务器也不参与你与AI服务的通信过程。
+                    </div>
+                </details>
+
+                <details style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(0, 255, 136, 0.15); border-radius: 12px; margin-bottom: 20px; overflow: hidden;">
+                    <summary style="padding: 25px; cursor: pointer; color: #fff; font-size: 18px; font-weight: 600; list-style: none; display: flex; align-items: center; justify-content: space-between;">
+                        如果我卸载扩展,数据会丢失吗?
+                        <span style="color: #00ff88; font-size: 24px;">+</span>
+                    </summary>
+                    <div style="padding: 0 25px 25px; color: rgba(255, 255, 255, 0.8); line-height: 1.7;">
+                        是的,卸载扩展会清除本地数据。建议在卸载前使用导出功能备份你的数据。导出的JSON文件可以永久保存,即使虫洞8°不存在了也能查看。
+                    </div>
+                </details>
+
+                <details style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(0, 255, 136, 0.15); border-radius: 12px; margin-bottom: 20px; overflow: hidden;">
+                    <summary style="padding: 25px; cursor: pointer; color: #fff; font-size: 18px; font-weight: 600; list-style: none; display: flex; align-items: center; justify-content: space-between;">
+                        虫洞8°是开源的吗?
+                        <span style="color: #00ff88; font-size: 24px;">+</span>
+                    </summary>
+                    <div style="padding: 0 25px 25px; color: rgba(255, 255, 255, 0.8); line-height: 1.7;">
+                        是的,虫洞8°的核心代码完全开源,你可以在GitHub上查看、审计和验证。开源意味着透明,你可以确认我们确实按照承诺保护你的隐私。
+                    </div>
+                </details>
+
+                <details style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(0, 255, 136, 0.15); border-radius: 12px; overflow: hidden;">
+                    <summary style="padding: 25px; cursor: pointer; color: #fff; font-size: 18px; font-weight: 600; list-style: none; display: flex; align-items: center; justify-content: space-between;">
+                        我的API密钥安全吗?
+                        <span style="color: #00ff88; font-size: 24px;">+</span>
+                    </summary>
+                    <div style="padding: 0 25px 25px; color: rgba(255, 255, 255, 0.8); line-height: 1.7;">
+                        完全安全。你的API密钥只存储在你浏览器的本地存储中,从不发送到我们的服务器。密钥直接从你的浏览器发送到对应的AI服务,我们无法访问。
+                    </div>
+                </details>
+            </div>
+        </section>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-links">
+                <a href="index.html" class="footer-link">首页</a>
+                <a href="philosophy.html" class="footer-link">设计哲学</a>
+                <a href="how-it-works.html" class="footer-link">工作原理</a>
+                <a href="use-cases.html" class="footer-link">使用场景</a>
+                <a href="roadmap.html" class="footer-link">路线图</a>
+                <a href="privacy.html" class="footer-link">隐私政策</a>
+                <a href="faq.html" class="footer-link">常见问题</a>
+                <a href="about.html" class="footer-link">关于</a>
+            </div>
+            <p class="copyright">
+                &copy; 2026 虫洞8° · 数据主权 · 本地优先 · 隐私至上
+            </p>
+        </div>
+    </footer>
+
+    <script src="js/matrix-rain.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            MatrixRain('matrix-rain', 0.05);
+
+            const currentPage = window.location.pathname.split('/').pop();
+            document.querySelectorAll('.nav-link').forEach(link => {
+                if (link.getAttribute('href') === currentPage) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+
+            // FAQ展开效果
+            document.querySelectorAll('details').forEach(detail => {
+                detail.addEventListener('toggle', function() {
+                    const summary = this.querySelector('summary');
+                    const icon = summary.querySelector('span');
+                    if (this.open) {
+                        icon.textContent = '−';
+                    } else {
+                        icon.textContent = '+';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

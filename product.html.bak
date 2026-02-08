@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>产品 - 虫洞8°</title>
+    <link rel="stylesheet" href="styles/matrix.css">
+    <style>
+        /* 页面特定样式 */
+        .page-header {
+            text-align: center;
+            padding: 80px 0 40px;
+            border-bottom: 1px solid rgba(0, 255, 136, 0.2);
+            margin-bottom: 60px;
+        }
+        
+        .page-title {
+            font-size: 48px;
+            color: #fff;
+            margin-bottom: 20px;
+            text-shadow: 0 0 30px rgba(0, 255, 136, 0.8);
+        }
+        
+        .page-subtitle {
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .content-section {
+            margin-bottom: 60px;
+        }
+        
+        .section-title {
+            font-size: 32px;
+            color: #00ff88;
+            margin-bottom: 30px;
+            border-left: 4px solid #00ff88;
+            padding-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 代码雨背景 -->
+    <canvas id="matrix-rain"></canvas>
+    <div class="scanline"></div>
+    
+    <!-- 角落装饰 -->
+    <div class="corner corner-tl"></div>
+    <div class="corner corner-tr"></div>
+    <div class="corner corner-bl"></div>
+    <div class="corner corner-br"></div>
+    
+    <div class="container">
+        <!-- 导航栏 -->
+        <nav class="navbar">
+            <a href="index.html" class="logo">
+                <span class="logo-emoji">🌀</span>
+                <span>虫洞8°</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">首页</a>
+                <a href="product.html" class="nav-link">产品</a>
+                <a href="tools.html" class="nav-link">智能工具</a>
+                <a href="download.html" class="nav-link">下载</a>
+                <a href="docs.html" class="nav-link">文档</a>
+                <a href="about.html" class="nav-link">关于</a>
+            </div>
+        </nav>        <!-- 页面头部 -->
+        <section class="page-header">
+            <h1 class="page-title">产品架构</h1>
+            <p class="page-subtitle">虫洞8°采用独特的多AI协同架构，为你提供全方位的决策支持</p>
+        </section>
+
+        <!-- 8人顾问团 -->
+        <section class="content-section">
+            <h2 class="section-title">🤖 8人顾问团</h2>
+            <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px;">
+                <div class="card">
+                    <h3 style="color: #00ff88; margin-bottom: 15px;">🧠 桃谷六仙</h3>
+                    <p style="color: rgba(255, 255, 255, 0.8); margin-bottom: 20px;">六位性格各异的AI专家，分别专注于不同领域的深度分析</p>
+                    <ul style="color: rgba(255, 255, 255, 0.7); padding-left: 20px;">
+                        <li>数据分析与模式识别</li>
+                        <li>风险评估与管理</li>
+                        <li>创新思维与创意生成</li>
+                        <li>逻辑推理与结构化思考</li>
+                        <li>情感智能与人际关系</li>
+                        <li>实用主义与执行策略</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h3 style="color: #00ff88; margin-bottom: 15px;">🔬 X证大师</h3>
+                    <p style="color: rgba(255, 255, 255, 0.8); margin-bottom: 20px;">技术验证专家，确保所有建议都有坚实的数据和技术基础</p>
+                    <ul style="color: rgba(255, 255, 255, 0.7); padding-left: 20px;">
+                        <li>数据真实性验证</li>
+                        <li>技术可行性分析</li>
+                        <li>量化模型构建</li>
+                        <li>统计显著性检验</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h3 style="color: #00ff88; margin-bottom: 15px;">🎯 风清扬</h3>
+                    <p style="color: rgba(255, 255, 255, 0.8); margin-bottom: 20px;">战略大师，提供宏观视角和长远规划</p>
+                    <ul style="color: rgba(255, 255, 255, 0.7); padding-left: 20px;">
+                        <li>战略方向制定</li>
+                        <li>长期趋势预测</li>
+                        <li>系统性思维</li>
+                        <li>价值观对齐</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 技术架构 -->
+        <section class="content-section">
+            <h2 class="section-title">⚙️ 技术架构</h2>
+            <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+                <div class="card">
+                    <h3 style="color: #00ff88; margin-bottom: 15px;">💾 本地优先</h3>
+                    <p style="color: rgba(255, 255, 255, 0.8);">所有数据处理和存储都在本地完成，无需上传到云端，确保完全的隐私保护</p>
+                </div>
+                
+                <div class="card">
+                    <h3 style="color: #00ff88; margin-bottom: 15px;">📹 VLog模块</h3>
+                    <p style="color: rgba(255, 255, 255, 0.8);">基于Topic Card的对话历史管理系统，将每次对话转化为可检索、可关联的知识卡片</p>
+                </div>
+                
+                <div class="card">
+                    <h3 style="color: #00ff88; margin-bottom: 15px;">🔄 多模型集成</h3>
+                    <p style="color: rgba(255, 255, 255, 0.8);">支持多种AI模型的灵活切换和组合，根据不同场景选择最适合的专家</p>
+                </div>
+                
+                <div class="card">
+                    <h3 style="color: #00ff88; margin-bottom: 15px;">📡 离线可用</h3>
+                    <p style="color: rgba(255, 255, 255, 0.8);">核心功能完全离线运行，不受网络状况影响，保证稳定性和可靠性</p>
+                </div>
+            </div>
+        </section>    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-links">
+                <a href="product.html" class="footer-link">产品</a>
+                <a href="tools.html" class="footer-link">智能工具</a>
+                <a href="download.html" class="footer-link">下载</a>
+                <a href="docs.html" class="footer-link">文档</a>
+                <a href="about.html" class="footer-link">关于</a>
+                <a href="privacy.html" class="footer-link">隐私政策</a>
+            </div>
+            <p class="copyright">
+                &copy; 2026 虫洞8° · 数据主权 · 本地优先 · 隐私至上<br>
+                <span style="color: rgba(0, 255, 136, 0.5); font-size: 12px; margin-top: 10px; display: block;">
+                    🌀 深海信号 · 并行计算 · 量子纠缠 · 神经网络
+                </span>
+            </p>
+        </div>
+    </footer>
+
+    <!-- 脚本 -->
+    <script src="../matrix-rain.js"></script>
+    <script>
+        // 初始化代码雨
+        document.addEventListener("DOMContentLoaded", function() {
+            MatrixRain("matrix-rain", 0.05);
+            
+            // 设置当前页面导航激活
+            const currentPage = window.location.pathname.split("/").pop();
+            document.querySelectorAll(".nav-link").forEach(link => {
+                if (link.getAttribute("href") === currentPage) {
+                    link.classList.add("active");
+                }
+            });
+        });
+    </script>
+</body>
+</html>

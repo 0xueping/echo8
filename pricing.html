@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>定价方案 - 虫洞8° Echo8 | 多Agent协作个人决策增强系统</title>
+    <meta name="description" content="虫洞8°定价方案：免费体验2个AI，Premium版解锁IndexedDB数据库，重度用户的终极选择。">
+    <link rel="stylesheet" href="styles/matrix.css">
+    <style>
+        :root {
+            --cyber-blue: #00f3ff;
+            --cyber-pink: #ff006e;
+            --cyber-purple: #8b00ff;
+            --cyber-green: #00ff9f;
+            --cyber-gold: #ffd700;
+            --dark-bg: #0a0a0f;
+            --card-bg: rgba(20, 20, 40, 0.8);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SF Mono', 'Fira Code', 'Monaco', 'Consolas', monospace;
+            background: var(--dark-bg);
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 60px 0 50px;
+        }
+
+        .hero h1 {
+            font-size: 32px;
+            background: linear-gradient(135deg, var(--cyber-blue), var(--cyber-pink), var(--cyber-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 12px;
+            letter-spacing: 0.15em;
+        }
+
+        .hero .tagline {
+            font-size: 13px;
+            color: var(--cyber-green);
+            margin-top: 8px;
+            letter-spacing: 0.1em;
+        }
+
+        /* Pricing Grid */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .pricing-card {
+            background: var(--card-bg);
+            border: 2px solid;
+            border-radius: 12px;
+            padding: 20px 15px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .pricing-card.free { border-color: var(--cyber-blue); }
+        .pricing-card.basic { border-color: var(--cyber-green); }
+        .pricing-card.pro { border-color: var(--cyber-purple); }
+        .pricing-card.premium {
+            border-color: var(--cyber-gold);
+            background: linear-gradient(135deg, rgba(255,215,0,0.1), rgba(139,0,255,0.1));
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: -10px;
+            right: 15px;
+            background: var(--cyber-gold);
+            color: #000;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 900;
+            box-shadow: 0 0 15px var(--cyber-gold);
+        }
+
+        .plan-name {
+            font-size: 16px;
+            font-weight: 900;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .pricing-card.free .plan-name { color: var(--cyber-blue); }
+        .pricing-card.basic .plan-name { color: var(--cyber-green); }
+        .pricing-card.pro .plan-name { color: var(--cyber-purple); }
+        .pricing-card.premium .plan-name { color: var(--cyber-gold); }
+
+        .plan-desc {
+            color: #aaa;
+            font-size: 11px;
+            margin-bottom: 12px;
+            min-height: 30px;
+        }
+
+        .price {
+            font-size: 28px;
+            font-weight: 900;
+            margin-bottom: 15px;
+        }
+
+        .price small {
+            font-size: 11px;
+            color: #888;
+            font-weight: 400;
+        }
+
+        .pricing-card.free .price { color: var(--cyber-blue); }
+        .pricing-card.basic .price { color: var(--cyber-green); }
+        .pricing-card.pro .price { color: var(--cyber-purple); }
+        .pricing-card.premium .price { color: var(--cyber-gold); }
+
+        .features {
+            text-align: left;
+            margin-bottom: 15px;
+        }
+
+        .feature-item {
+            padding: 6px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            display: flex;
+            align-items: flex-start;
+            gap: 6px;
+        }
+
+        .feature-item:last-child { border-bottom: none; }
+
+        .feature-icon {
+            font-size: 11px;
+            min-width: 16px;
+            margin-top: 2px;
+        }
+
+        .feature-icon.yes { color: var(--cyber-green); }
+        .feature-icon.no { color: #444; }
+
+        .feature-highlight {
+            background: linear-gradient(90deg, var(--cyber-gold), var(--cyber-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
+
+        .storage-note {
+            font-size: 10px;
+            color: #888;
+            margin-top: 2px;
+            padding-left: 22px;
+        }
+
+        .cta-button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            font-weight: 700;
+            font-size: 11px;
+            text-align: center;
+            text-decoration: none;
+            text-transform: uppercase;
+            border: 2px solid;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            letter-spacing: 0.05em;
+        }
+
+        .pricing-card.free .cta-button {
+            background: transparent;
+            border-color: var(--cyber-blue);
+            color: var(--cyber-blue);
+        }
+        .pricing-card.free .cta-button:hover {
+            background: var(--cyber-blue);
+            color: #000;
+        }
+
+        .pricing-card.basic .cta-button {
+            background: transparent;
+            border-color: var(--cyber-green);
+            color: var(--cyber-green);
+        }
+        .pricing-card.basic .cta-button:hover {
+            background: var(--cyber-green);
+            color: #000;
+        }
+
+        .pricing-card.pro .cta-button {
+            background: var(--cyber-purple);
+            border-color: var(--cyber-purple);
+            color: #fff;
+        }
+        .pricing-card.pro .cta-button:hover {
+            background: var(--cyber-pink);
+            box-shadow: 0 0 20px var(--cyber-pink);
+        }
+
+        .pricing-card.premium .cta-button {
+            background: linear-gradient(135deg, var(--cyber-gold), #ffd700);
+            border-color: var(--cyber-gold);
+            color: #000;
+            font-weight: 900;
+        }
+        .pricing-card.premium .cta-button:hover {
+            box-shadow: 0 0 25px var(--cyber-gold);
+        }
+
+        /* Highlight Section */
+        .highlight-section {
+            background: var(--card-bg);
+            border-left: 3px solid var(--cyber-gold);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 30px 0;
+            backdrop-filter: blur(10px);
+        }
+
+        .highlight-section h3 {
+            color: var(--cyber-gold);
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .highlight-section p {
+            color: #ccc;
+            font-size: 11px;
+            line-height: 1.7;
+            margin-bottom: 8px;
+        }
+
+        /* Comparison Table */
+        .comparison-section {
+            margin: 30px 0;
+        }
+
+        .comparison-section h2 {
+            font-size: 16px;
+            text-align: center;
+            color: var(--cyber-pink);
+            margin-bottom: 15px;
+            letter-spacing: 0.1em;
+        }
+
+        .comparison-table-wrapper {
+            overflow-x: auto;
+            border-radius: 8px;
+            border: 1px solid rgba(0, 255, 136, 0.2);
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            min-width: 600px;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 10px 12px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
+            font-size: 11px;
+        }
+
+        .comparison-table th {
+            background: rgba(0,243,255,0.1);
+            font-weight: 700;
+        }
+
+        .comparison-table th:first-child {
+            text-align: left;
+        }
+
+        .comparison-table td:first-child {
+            text-align: left;
+            font-weight: 500;
+        }
+
+        .check { color: var(--cyber-green); }
+        .cross { color: #444; }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            color: #666;
+            font-size: 10px;
+            border-top: 1px solid rgba(0, 255, 136, 0.1);
+            margin-top: 30px;
+        }
+
+        footer a {
+            color: var(--cyber-blue);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 24px; }
+            .pricing-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Canvas Background -->
+    <canvas id="matrixCanvas"></canvas>
+
+    <div class="container">
+        <header class="hero">
+            <h1>ECHO8°</h1>
+            <p class="tagline">虫洞连接 · 8个AI · 无限可能</p>
+        </header>
+
+        <div class="pricing-grid">
+            <!-- Free -->
+            <div class="pricing-card free">
+                <div class="plan-name">Free</div>
+                <div class="plan-desc">免费体验，轻松入门</div>
+                <div class="price">¥0 <small>/永久</small></div>
+                <div class="features">
+                    <div class="feature-item">
+                        <span class="feature-icon yes">✓</span>
+                        <div>
+                            <div>同时群发 2个AI</div>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon yes">✓</span>
+                        <div>
+                            <div>localStorage存储</div>
+                            <div class="storage-note">约5-10MB，适合轻度使用</div>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon yes">✓</span>
+                        <span>追加保存对话</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon yes">✓</span>
+                        <span>右键快捷操作</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon yes">✓</span>
+                        <span>双击快速保存</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon yes">✓</span>
+                        <span>快捷键支持</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon yes">✓</span>
+                        <span>界面美化</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon yes">✓</span>
+                        <span>数据导出功能</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon no">✗</span>
+                        <span>虫洞功能</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon no">✗</span>
+                        <span>IndexedDB数据库</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon no">✗</span>
+                        <span>高级查询分析</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon no">✗</span>
+                        <span>优先技术支持</span>
+                    </div>
+                </div>
+                <a href="#" class="cta-button">立即使用</a>
+            </div>
+
+            <!-- Basic -->
+            <div class="pricing-card basic">
+                <div class="plan-name">Basic</div>
+                <div class="plan-desc">中度使用</div>
+                <div class="price">¥19 <small>/月</small></div>
+                <div class="features">
+                    <div class="feature-item">
+                        <span class="feature-icon yes">✓</span>
+                        <div>
+                            <div>同时群发 4个AI</div>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon yes">✓</span>
+                        <div>
+                            <div>localStorage存储</div>
+                            <div class="storage-note">约5-10MB，数据多了会满</div>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon yes">✓</span>
+                        <span>追加保存对话</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon yes">✓</span>
+                        <span>右键快捷操作</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon yes">✓</span>
+                        <span>双击快速保存</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon yes">✓</span>
+                        <span>快捷键支持</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon yes">✓</span>
+                        <span>界面美化</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon yes">✓</span>
+                        <span>数据导出功能</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon no">✗</span>
+                        <span>虫洞功能</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon no">✗</span>
+                        <span>IndexedDB数据库</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon no">✗</span>
+                        <span>高级查询分析</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon no">✗</span>
+                        <span>优先技术支持</span>
+                    </div>
+                </div>
+                <a href="#" class="cta-button">选择Basic</a>
+            </div>
+
+            <!-- Pro -->
+            <div class="pricing-card pro">
+                <div class="plan-name">Pro</div>
+                <div class="plan-desc">虫洞实验玩家</div>
+                <div class="price">¥49 <small>/月</small></div>
+                <div class="features">
+                    <div class="feature-item">
+                        <span class="feature-icon yes">✓</span>
+                        <span>同时群发 8个AI</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon yes">✓</span>
+                        <span>🌀 虫洞功能（AI间转发）</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon yes">✓</span>
+                        <div>
+                            <div>localStorage存储</div>
+                            <div class="storage-note">玩虫洞够用，重度使用会满</div>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon yes">✓</span>
+                        <span>追加保存对话</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon yes">✓</span>
+                        <span>右键快捷操作</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon yes">✓</span>
+                        <span>双击快速保存</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon yes">✓</span>
+                        <span>快捷键支持</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon yes">✓</span>
+                        <span>界面美化</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon yes">✓</span>
+                        <span>数据导出功能</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon no">✗</span>
+                        <span>IndexedDB数据库</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon no">✗</span>
+                        <span>高级查询分析</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon no">✗</span>
+                        <span>优先技术支持</span>
+                    </div>
+                </div>
+                <a href="#" class="cta-button">选择Pro</a>
+            </div>
+
+            <!-- Premium -->
+            <div class="pricing-card premium">
+                <div class="popular-badge">👑 重度用户之选</div>
+                <div class="plan-name">Premium</div>
+                <div class="plan-desc">白金版 · 天天用也不怕</div>
+                <div class="price">¥99 <small>/月</small></div>
+                <div class="features">
+                    <div class="feature-item">
+                        <span class="feature-icon yes">✓</span>
+                        <span>同时群发 8个AI</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon yes">✓</span>
+                        <span>🌀 虫洞功能</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon yes">✓</span>
+                        <div>
+                            <div class="feature-highlight">💾 IndexedDB数据库</div>
+                            <div class="storage-note">GB级容量，几万条消息不是问题</div>
+                            <div class="storage-note">完整历史记录，永不丢失</div>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon yes">✓</span>
+                        <span>高级查询与分析</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon yes">✓</span>
+                        <span>追加保存对话</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon yes">✓</span>
+                        <span>右键快捷操作</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon yes">✓</span>
+                        <span>双击快速保存</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon yes">✓</span>
+                        <span>快捷键支持</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon yes">✓</span>
+                        <span>界面美化</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon yes">✓</span>
+                        <span>数据导出功能</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon yes">✓</span>
+                        <span>优先技术支持</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon yes">✓</span>
+                        <span>提前体验新功能</span>
+                    </div>
+                </div>
+                <a href="#" class="cta-button">选择Premium</a>
+            </div>
+        </div>
+
+        <!-- 重度用户痛点说明 -->
+        <section class="highlight-section">
+            <h3>💎 为什么重度用户需要Premium？</h3>
+            <p>
+                <strong style="color: var(--cyber-green);">场景：</strong>
+                你每天和8个AI讨论10个问题，每个问题8个回复，一个月就是2400条消息。
+            </p>
+            <p>
+                <strong style="color: var(--cyber-pink);">问题：</strong>
+                localStorage只有5-10MB，几个月后数据满了，旧消息自动删除，<span style="color: var(--cyber-pink); font-weight: 700;">历史记录丢失！</span>
+            </p>
+            <p>
+                <strong style="color: var(--cyber-gold);">解决：</strong>
+                Premium的IndexedDB数据库，<span style="color: var(--cyber-gold); font-weight: 700;">GB级容量</span>，
+                <span style="color: var(--cyber-gold); font-weight: 700;">天天用也不怕</span>，
+                你的对话数据是宝贵资产，值得被完整保存。
+            </p>
+        </section>
+
+        <!-- 对比表格 -->
+        <section class="comparison-section">
+            <h2>功能对比</h2>
+            <div class="comparison-table-wrapper">
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>功能特性</th>
+                            <th>Free</th>
+                            <th>Basic</th>
+                            <th>Pro</th>
+                            <th style="background: rgba(255,215,0,0.1);">Premium</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="5" style="padding: 6px 12px; text-align: center; font-weight: 700; color: var(--cyber-pink);">核心差异</td>
+                        </tr>
+                        <tr>
+                            <td>同时群发AI数量</td>
+                            <td>2个</td>
+                            <td>4个</td>
+                            <td>8个</td>
+                            <td style="background: rgba(255,215,0,0.05);">8个</td>
+                        </tr>
+                        <tr>
+                            <td>虫洞功能（AI间转发）</td>
+                            <td><span class="cross">✗</span></td>
+                            <td><span class="cross">✗</span></td>
+                            <td><span class="check">✓</span></td>
+                            <td style="background: rgba(255,215,0,0.05);"><span class="check">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span style="color: var(--cyber-gold);">💾 IndexedDB数据库</span>
+                                <div style="font-size: 9px; color: #888; margin-top: 2px;">重度用户刚需</div>
+                            </td>
+                            <td><span class="cross">✗</span></td>
+                            <td><span class="cross">✗</span></td>
+                            <td><span class="cross">✗</span></td>
+                            <td style="background: rgba(255,215,0,0.05);"><span style="color: var(--cyber-gold); font-weight: 900;">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td colspan="5" style="padding: 6px 12px; text-align: center; font-weight: 700; color: var(--cyber-blue);">所有用户都有的功能</td>
+                        </tr>
+                        <tr>
+                            <td>追加保存对话</td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                            <td style="background: rgba(255,215,0,0.05);"><span class="check">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>右键快捷操作</td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                            <td style="background: rgba(255,215,0,0.05);"><span class="check">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>双击操作</td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                            <td style="background: rgba(255,215,0,0.05);"><span class="check">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>快捷键</td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                            <td style="background: rgba(255,215,0,0.05);"><span class="check">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>界面美化</td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                            <td style="background: rgba(255,215,0,0.05);"><span class="check">✓</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Echo8° Project | 创新 · 高效 · 专业</p>
+        <p style="margin-top: 8px;">
+            <a href="index.html">首页</a> ·
+            <a href="philosophy.html">设计哲学</a> ·
+            <a href="how-it-works.html">工作原理</a> ·
+            <a href="use-cases.html">使用场景</a> ·
+            <a href="pricing.html">定价</a> ·
+            <a href="faq.html">常见问题</a>
+        </p>
+    </footer>
+
+    <script src="js/matrix.js"></script>
+</body>
+</html>

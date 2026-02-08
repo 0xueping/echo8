@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>虫洞8° - 多智能体协作的个人决策增强系统</title>
+    <meta name="description" content="虫洞8°是一个多智能体协作的个人决策增强系统,通过并行获取多个AI的视角、系统化沉淀决策过程、智能分析认知差异,帮助你建立长期的、不可替代的数字认知资产。">
+    <link rel="stylesheet" href="styles/matrix.css">
+    <style>
+        /* 主页特定样式 */
+        .hero {
+            min-height: 85vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            padding: 120px 20px 80px;
+        }
+
+        .hero-content {
+            max-width: 1000px;
+            position: relative;
+            z-index: 20;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            color: #00ff88;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+        }
+
+        .hero-title {
+            font-size: 56px;
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 24px;
+            line-height: 1.2;
+            text-shadow: 0 0 40px rgba(0, 255, 136, 0.9);
+            animation: glowIn 1.5s ease forwards;
+        }
+
+        .hero-title .highlight {
+            color: #00ff88;
+            position: relative;
+            display: inline-block;
+        }
+
+        .hero-title .highlight::after {
+            content: '';
+            position: absolute;
+            bottom: 5px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #00ff88, transparent);
+        }
+
+        .hero-subtitle {
+            font-size: 22px;
+            color: rgba(255, 255, 255, 0.85);
+            margin-bottom: 40px;
+            line-height: 1.7;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-description {
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.65);
+            margin-bottom: 50px;
+            line-height: 1.6;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+
+        /* 核心定位卡片 */
+        .positioning-card {
+            background: rgba(0, 255, 136, 0.05);
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            border-radius: 16px;
+            padding: 30px 40px;
+            margin: 40px auto 0;
+            max-width: 800px;
+            backdrop-filter: blur(10px);
+        }
+
+        .positioning-text {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.8;
+            text-align: left;
+        }
+
+        .positioning-text strong {
+            color: #00ff88;
+        }
+
+        /* 核心价值网格 */
+        .value-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            margin: 80px 0;
+        }
+
+        .value-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(0, 255, 136, 0.15);
+            border-radius: 16px;
+            padding: 40px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .value-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #00ff88, transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .value-card:hover {
+            border-color: rgba(0, 255, 136, 0.3);
+            background: rgba(0, 255, 136, 0.05);
+            transform: translateY(-5px);
+        }
+
+        .value-card:hover::before {
+            opacity: 1;
+        }
+
+        .value-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .value-title {
+            font-size: 24px;
+            color: #fff;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .value-desc {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 15px;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .value-contrast {
+            background: rgba(0, 0, 0, 0.3);
+            border-left: 2px solid rgba(0, 255, 136, 0.3);
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .value-contrast .old {
+            color: rgba(255, 100, 100, 0.8);
+            font-size: 13px;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .value-contrast .new {
+            color: #00ff88;
+            font-size: 14px;
+        }
+
+        /* 对比表 */
+        .comparison-section {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            border-radius: 20px;
+            padding: 60px 40px;
+            margin: 80px 0;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin-top: 40px;
+        }
+
+        .comparison-table th {
+            background: rgba(0, 255, 136, 0.1);
+            color: #00ff88;
+            padding: 20px;
+            text-align: left;
+            font-size: 16px;
+            border-bottom: 2px solid rgba(0, 255, 136, 0.3);
+        }
+
+        .comparison-table th:first-child {
+            border-radius: 8px 0 0 0;
+        }
+
+        .comparison-table th:last-child {
+            border-radius: 0 8px 0 0;
+        }
+
+        .comparison-table td {
+            padding: 18px 20px;
+            border-bottom: 1px solid rgba(0, 255, 136, 0.1);
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 15px;
+        }
+
+        .comparison-table tr:hover td {
+            background: rgba(0, 255, 136, 0.05);
+        }
+
+        .comparison-table .traditional {
+            color: rgba(255, 100, 100, 0.8);
+        }
+
+        .comparison-table .echo8 {
+            color: #00ff88;
+            font-weight: 600;
+        }
+
+        /* 使用场景 */
+        .scenarios-section {
+            padding: 80px 0;
+        }
+
+        .scenario-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin: 50px 0;
+        }
+
+        .scenario-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(0, 255, 136, 0.15);
+            border-radius: 16px;
+            padding: 35px;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .scenario-card:hover {
+            border-color: rgba(0, 255, 136, 0.4);
+            box-shadow: 0 0 40px rgba(0, 255, 136, 0.2);
+            transform: translateY(-8px);
+        }
+
+        .scenario-icon {
+            font-size: 56px;
+            margin-bottom: 20px;
+        }
+
+        .scenario-title {
+            font-size: 20px;
+            color: #fff;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .scenario-desc {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* 数据流展示 */
+        .data-flow-section {
+            margin: 80px 0;
+            padding: 80px 0;
+            border-top: 1px solid rgba(0, 255, 136, 0.2);
+            border-bottom: 1px solid rgba(0, 255, 136, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .data-flow-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.1), transparent);
+            animation: dataFlow 6s linear infinite;
+        }
+
+        @keyframes dataFlow {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin: 50px 0;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 30px;
+        }
+
+        .stat-number {
+            font-size: 52px;
+            font-weight: bold;
+            color: #00ff88;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+        }
+
+        .stat-label {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 15px;
+        }
+
+        /* 核心原则 */
+        .principles-section {
+            padding: 80px 0;
+        }
+
+        .principles-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 25px;
+            margin: 50px 0;
+        }
+
+        .principle-item {
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        .principle-symbol {
+            font-size: 36px;
+            margin-bottom: 15px;
+            color: #00ff88;
+        }
+
+        .principle-title {
+            font-size: 16px;
+            color: #fff;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .principle-desc {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        /* 行动号召 */
+        .cta-section {
+            text-align: center;
+            margin: 100px 0 80px;
+            padding: 80px 0;
+            background: rgba(0, 255, 136, 0.05);
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            border-radius: 20px;
+        }
+
+        .cta-title {
+            font-size: 42px;
+            color: #fff;
+            margin-bottom: 20px;
+            text-shadow: 0 0 30px rgba(0, 255, 136, 0.6);
+        }
+
+        .cta-subtitle {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 18px;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        @media (max-width: 1024px) {
+            .value-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .scenario-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .principles-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 38px;
+            }
+
+            .hero-subtitle {
+                font-size: 18px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .principles-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .comparison-table {
+                font-size: 13px;
+            }
+
+            .comparison-table th,
+            .comparison-table td {
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 代码雨背景 -->
+    <canvas id="matrix-rain"></canvas>
+
+    <!-- 角落装饰 -->
+    <div class="corner corner-tl"></div>
+    <div class="corner corner-tr"></div>
+    <div class="corner corner-bl"></div>
+    <div class="corner corner-br"></div>
+
+    <div class="container">
+        <!-- 导航栏 -->
+        <nav class="navbar">
+            <a href="index.html" class="logo">
+                <span class="logo-emoji">🌀</span>
+                <span>虫洞8°</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link active">首页</a>
+                <a href="philosophy.html" class="nav-link">设计哲学</a>
+                <a href="how-it-works.html" class="nav-link">工作原理</a>
+                <a href="use-cases.html" class="nav-link">使用场景</a>
+                <a href="download.html" class="nav-link">下载</a>
+                <a href="docs.html" class="nav-link">文档</a>
+            </div>
+        </nav>
+
+        <!-- 英雄区域 -->
+        <section class="hero">
+            <div class="hero-content">
+                <div class="hero-badge">v1.0 正式发布</div>
+                <h1 class="hero-title">
+                    <span class="highlight">一次输入</span><br>
+                    <span class="highlight">八方回响</span>
+                </h1>
+                <p class="hero-subtitle">
+                    8个AI专家并行思考,为你的每一个重要决策提供多视角深度分析
+                </p>
+                <p class="hero-description">
+                    数据主权 · 本地优先 · 隐私保护 · 认知资产
+                </p>
+
+                <div class="hero-cta">
+                    <a href="download.html" class="btn btn-primary">
+                        <span>🚀</span>
+                        立即下载
+                    </a>
+                    <a href="how-it-works.html" class="btn btn-secondary">
+                        <span>📖</span>
+                        了解工作原理
+                    </a>
+                    <a href="philosophy.html" class="btn btn-ghost">
+                        <span>🎯</span>
+                        设计哲学
+                    </a>
+                </div>
+
+                <!-- 核心定位 -->
+                <div class="positioning-card">
+                    <p class="positioning-text">
+                        <strong>虫洞8°</strong> 是一个<strong>多智能体协作的个人决策增强系统</strong>,通过并行获取多个AI的视角、系统化沉淀决策过程、智能分析认知差异,帮助需要做出重要判断的用户建立长期的、不可替代的<strong>数字认知资产</strong>。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 核心价值对比 -->
+        <section class="features">
+            <h2 class="section-title">💎 为什么选择虫洞8°?</h2>
+            <div class="value-grid">
+                <div class="value-card">
+                    <span class="value-icon">🔍</span>
+                    <h3 class="value-title">多视角对比</h3>
+                    <p class="value-desc">
+                        不是单一答案,而是8个AI专家的并行思考。看到共识,发现分歧,识别盲区,做出更稳健的决策。
+                    </p>
+                    <div class="value-contrast">
+                        <span class="old">❌ 传统: 问一次AI,得到一个可能存在盲区的答案</span>
+                        <span class="new">✓ 虫洞8°: 一次群发,8个视角同时展现</span>
+                    </div>
+                </div>
+
+                <div class="value-card">
+                    <span class="value-icon">🎯</span>
+                    <h3 class="value-title">决策支持</h3>
+                    <p class="value-desc">
+                        不是简单的信息获取,而是决策辅助系统。AI是顾问,你是决策者。帮助你分析,不替代你判断。
+                    </p>
+                    <div class="value-contrast">
+                        <span class="old">❌ 传统: 即时答案,消费完即忘</span>
+                        <span class="new">✓ 虫洞8°: 深度分析,支持你的决策</span>
+                    </div>
+                </div>
+
+                <div class="value-card">
+                    <span class="value-icon">💎</span>
+                    <h3 class="value-title">认知资产积累</h3>
+                    <p class="value-desc">
+                        不是聊天记录,而是决策档案。每次对话形成<strong>认知快照</strong>,可生成共识、差异、融合分析,支持二次三次加工,随时间持续增值。
+                    </p>
+                    <div class="value-contrast">
+                        <span class="old">❌ 传统: 聊天日志,看完就扔</span>
+                        <span class="new">✓ 虫洞8°: 认知快照,可二次加工,持续增值</span>
+                    </div>
+                </div>
+
+                <div class="value-card">
+                    <span class="value-icon">🔐</span>
+                    <h3 class="value-title">数据主权</h3>
+                    <p class="value-desc">
+                        本地优先架构,所有数据存储在你的设备上。真正的数据主权,真正的隐私保护,真正的所有权。
+                    </p>
+                    <div class="value-contrast">
+                        <span class="old">❌ 传统: 云端存储,数据不在你手中</span>
+                        <span class="new">✓ 虫洞8°: 本地存储,你拥有数据</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 对比表格 -->
+        <section class="comparison-section">
+            <h2 class="section-title">📊 本质区别</h2>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>对比维度</th>
+                        <th>传统AI助手</th>
+                        <th>虫洞8°</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>核心单位</strong></td>
+                        <td class="traditional">消息(Message)</td>
+                        <td class="echo8">话题(Topic)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>时间模型</strong></td>
+                        <td class="traditional">线性流(Stream)</td>
+                        <td class="echo8">认知快照(Snapshot)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>价值实现</strong></td>
+                        <td class="traditional">即时答案</td>
+                        <td class="echo8">决策支持</td>
+                    </tr>
+                    <tr>
+                        <td><strong>数据定位</strong></td>
+                        <td class="traditional">聊天日志</td>
+                        <td class="echo8">认知资产</td>
+                    </tr>
+                    <tr>
+                        <td><strong>用户角色</strong></td>
+                        <td class="traditional">信息消费者</td>
+                        <td class="echo8">决策制定者</td>
+                    </tr>
+                    <tr>
+                        <td><strong>成功定义</strong></td>
+                        <td class="traditional">AI答对了</td>
+                        <td class="echo8">你的决策更稳健了</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- 数据流展示 -->
+        <section class="data-flow-section">
+            <h2 class="section-title">📡 深海信号数据流</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">8</div>
+                    <div class="stat-label">并行AI专家</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">本地数据存储</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">0</div>
+                    <div class="stat-label">云端依赖</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">∞</div>
+                    <div class="stat-label">数据主权</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 使用场景 -->
+        <section class="scenarios-section">
+            <h2 class="section-title">💡 适用场景</h2>
+            <div class="scenario-grid">
+                <div class="scenario-card">
+                    <div class="scenario-icon">💻</div>
+                    <h3 class="scenario-title">技术决策</h3>
+                    <p class="scenario-desc">
+                        技术选型、架构设计、代码评审。8个AI专家提供不同视角,帮你识别风险和最佳实践
+                    </p>
+                </div>
+                <div class="scenario-card">
+                    <div class="scenario-icon">✍️</div>
+                    <h3 class="scenario-title">内容创作</h3>
+                    <p class="scenario-desc">
+                        文章写作、创意策划、方案设计。多角度启发,让你的创作更有深度和广度
+                    </p>
+                </div>
+                <div class="scenario-card">
+                    <div class="scenario-icon">📊</div>
+                    <h3 class="scenario-title">商业分析</h3>
+                    <p class="scenario-desc">
+                        市场分析、竞品研究、战略规划。综合多个视角,做出更明智的商业决策
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 核心原则 -->
+        <section class="principles-section">
+            <h2 class="section-title">⚡ 核心设计原则</h2>
+            <div class="principles-grid">
+                <div class="principle-item">
+                    <div class="principle-symbol">🔍</div>
+                    <h3 class="principle-title">多视角优于单一答案</h3>
+                    <p class="principle-desc">价值在对比,不在结论</p>
+                </div>
+                <div class="principle-item">
+                    <div class="principle-symbol">🎯</div>
+                    <h3 class="principle-title">决策支持优于信息获取</h3>
+                    <p class="principle-desc">帮助判断,不替代判断</p>
+                </div>
+                <div class="principle-item">
+                    <div class="principle-symbol">💎</div>
+                    <h3 class="principle-title">长期资产优于临时对话</h3>
+                    <p class="principle-desc">积累价值,不是消费信息</p>
+                </div>
+                <div class="principle-item">
+                    <div class="principle-symbol">🔐</div>
+                    <h3 class="principle-title">本地优先优于云端便利</h3>
+                    <p class="principle-desc">所有权感,建立信任</p>
+                </div>
+                <div class="principle-item">
+                    <div class="principle-symbol">📈</div>
+                    <h3 class="principle-title">渐进披露优于功能堆砌</h3>
+                    <p class="principle-desc">简单入门,深度可选</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 行动号召 -->
+        <section class="cta-section">
+            <h2 class="cta-title">🚀 开始建立你的认知资产</h2>
+            <p class="cta-subtitle">
+                下载虫洞8° Chrome扩展,体验8个AI专家同时为你工作的强大能力
+            </p>
+            <div style="background: rgba(0, 255, 136, 0.1); border: 2px solid rgba(0, 255, 136, 0.3); border-radius: 16px; padding: 30px; margin: 40px auto 0; max-width: 800px;">
+                <p style="color: rgba(255, 255, 255, 0.9); font-size: 18px; line-height: 1.8; text-align: center; margin-bottom: 15px;">
+                    <strong style="color: #00ff88;">真正值钱的不是这个插件</strong>
+                </p>
+                <p style="color: rgba(255, 255, 255, 0.8); font-size: 16px; line-height: 1.8; text-align: center;">
+                    而是你日积月累的数据资产——你的决策历程、思考模式、认知成长。<br>
+                    这些数据无法迁移、无法复制、随时间持续增值。<br>
+                    <strong style="color: #00ff88;">这就是时间护城河。</strong>
+                </p>
+            </div>
+            <div class="hero-cta" style="margin-top: 40px;">
+                <a href="download.html" class="btn btn-primary" style="padding: 18px 48px; font-size: 18px;">
+                    <span>⚡</span>
+                    立即下载体验
+                </a>
+                <a href="use-cases.html" class="btn btn-secondary" style="padding: 18px 48px; font-size: 18px;">
+                    <span>📖</span>
+                    查看使用案例
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-links">
+                <a href="index.html" class="footer-link">首页</a>
+                <a href="philosophy.html" class="footer-link">设计哲学</a>
+                <a href="how-it-works.html" class="footer-link">工作原理</a>
+                <a href="use-cases.html" class="footer-link">使用场景</a>
+                <a href="roadmap.html" class="footer-link">路线图</a>
+                <a href="privacy.html" class="footer-link">隐私政策</a>
+                <a href="faq.html" class="footer-link">常见问题</a>
+                <a href="about.html" class="footer-link">关于</a>
+            </div>
+            <p class="copyright">
+                &copy; 2026 虫洞8° · 数据主权 · 本地优先 · 隐私至上<br>
+                <span style="color: rgba(0, 255, 136, 0.5); font-size: 12px; margin-top: 10px; display: block;">
+                    🌀 多智能体协作 · 决策增强 · 认知资产 · 时间护城河
+                </span>
+            </p>
+        </div>
+    </footer>
+
+    <!-- 脚本 -->
+    <script src="js/matrix-rain.js"></script>
+    <script>
+        // 初始化代码雨
+        document.addEventListener('DOMContentLoaded', function() {
+            MatrixRain('matrix-rain', 0.05);
+
+            // 导航栏激活状态
+            const currentPage = window.location.pathname.split('/').pop();
+            document.querySelectorAll('.nav-link').forEach(link => {
+                if (link.getAttribute('href') === currentPage) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+
+            // 动画效果
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            // 观察所有卡片
+            document.querySelectorAll('.value-card, .scenario-card, .stat-card, .principle-item').forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(card);
+            });
+        });
+    </script>
+</body>
+</html>

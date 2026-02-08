@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试代码雨</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #0f172a;
+            font-family: 'Consolas', monospace;
+        }
+        #matrix-rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="matrix-rain"></canvas>
+    <div style="position: relative; z-index: 10; padding: 50px; color: #00ff88;">
+        <h1>代码雨测试页面</h1>
+        <p>如果看到绿色代码雨从上往下落，说明代码雨正常工作。</p>
+    </div>
+
+    <script src="js/matrix-rain.js"></script>
+</body>
+</html>
